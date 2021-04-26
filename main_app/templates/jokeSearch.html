@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ response.text }}</h1>
+<h1>Joke Search</h1>
 <hr>
+<h2>{{ response.text }}</h2>
 <h2>{{ response.text.body }}</h2>
-
-<a href="{% url 'home' %}">Home</a>
 
 {% endblock %}
