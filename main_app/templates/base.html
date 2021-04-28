@@ -23,6 +23,7 @@
           <li><a href="{% url 'jokeById' %}">Joke by ID</a></li>
           <li><a href="{% url 'jokeByType' %}">Joke by Type</a></li>
           <li><a href="{% url 'jokeSearch' %}">Joke Search</a></li>
+          <li><a href="{% url 'allJokes' %}">All Jokes</a></li>
 
           {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}">Log Out</a></li>
@@ -39,7 +40,7 @@
     {% endblock %}
   </main>
   <footer class="page-footer brown lighten-1 z-depth-1">
-    <div class="right">All Rights Reserved, &copy; {% now "Y" %} Dog Collector &nbsp;</div>
+    <div class="right">All Rights Reserved, &copy; {% now "Y" %} Auto-Jokester &nbsp;</div>
   </footer>
 </body>
 </html>

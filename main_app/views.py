@@ -12,6 +12,9 @@ API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 def home(request):
     return render(request, 'home.html')
 
+def allJokes(request):
+    return render(request, 'allJokes.html')
+
 def randomJoke(request):
     # Ref. https://rapidapi.com/KegenGuyll/api/dad-jokes/endpoints
     # On left-hand side, click "Random" ==> select "GET Random Jokes"
