@@ -2,45 +2,55 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Dad Jokes</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
-<body>
-  <header class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper brown lighten-1 z-depth-1">
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Dad Jokes</a></li>
-        </ul>
-        <ul class="right">
-          <li><a href="{% url 'randomJoke' %}">Random Joke</a></li>
-          <li><a href="{% url 'jokeById' %}">Joke by ID</a></li>
-          <li><a href="{% url 'jokeByType' %}">Joke by Type</a></li>
-          <li><a href="{% url 'jokeSearch' %}">Joke Search</a></li>
-          <li><a href="{% url 'allJokes' %}">All Jokes</a></li>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dad Jokes</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <header class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper brown lighten-1 z-depth-1">
+          <ul>
+            <li>
+              <a href="/" class="left brand-logo">&nbsp;&nbsp;Dad Jokes</a>
+            </li>
+          </ul>
+          <ul class="right">
+            {% comment %} Put below code back before deployment {% endcomment %}
+            {# {% if user.is_authenticated %} #}
+            <li><a href="{% url 'randomJoke' %}">All Jokes</a></li>
+            <li><a href="{% url 'jokeById' %}">Submit a Joke</a></li>
+            <li><a href="{% url 'jokeByType' %}">My Favorite Jokes</a></li>
+            <li><a href="{% url 'jokeSearch' %}">My Profile</a></li>
+            {% comment %} Erase below code and replace with above before
+            deploying {% endcomment %} {% if user.is_authenticated %}
 
-          {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}">Log Out</a></li>
-          {% else %}
-          <li><a href="{% url 'login' %}">Log In</a></li>
-          <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          {% endif %}
-        </ul>
+            {% else %}
+            <li><a href="{% url 'login' %}">Log In</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="container">{% block content %} {% endblock %}</main>
+    <footer class="page-footer brown lighten-1 z-depth-1">
+      <div class="right">
+        All Rights Reserved, &copy; {% now "Y" %} Dog Collector &nbsp;
       </div>
-    </nav>
-  </header>
-  <main class="container">
-    {% block content %}
-    {% endblock %}
-  </main>
-  <footer class="page-footer brown lighten-1 z-depth-1">
-    <div class="right">All Rights Reserved, &copy; {% now "Y" %} Auto-Jokester &nbsp;</div>
-  </footer>
-</body>
+    </footer>
+  </body>
 </html>
