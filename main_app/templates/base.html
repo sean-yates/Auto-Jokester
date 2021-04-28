@@ -36,6 +36,7 @@
             <li><a href="{% url 'jokeSearch' %}">My Profile</a></li>
             {% comment %} Erase below code and replace with above before
             deploying {% endcomment %} {% if user.is_authenticated %}
+
             <li><a href="{% url 'logout' %}">Log Out</a></li>
             {% else %}
             <li><a href="{% url 'login' %}">Log In</a></li>
