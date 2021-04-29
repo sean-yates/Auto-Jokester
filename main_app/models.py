@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 CATEGORIES = (
-    'Random Jokes',
-    'Yo Mama Jokes',
-    'Dad Puns',
-    'Knock Knock Jokes',
-    'Bar Jokes',
-    'Computer Jokes',
-    'Sports Jokes',
-    'Dog Jokes'
+    ('R', 'Random Jokes'),
+    ('Y', 'Yo Mama Jokes'),
+    ('D', 'Dad Puns'),
+    ('K', 'Knock Knock Jokes'),
+    ('B', 'Bar Jokes'),
+    ('C', 'Computer Jokes'),
+    ('S', 'Sports Jokes'),
+    ('D', 'Dog Jokes')
 )
 
 class Joke(models.Model):
@@ -25,7 +25,7 @@ class Joke(models.Model):
     
     dislikes = models.ManyToManyField(User, blank=True, related_name = 'dislikes')
 
-    category = models.CharField(max_length=50, choices=CATEGORIES, default=CATEGORIES[0])
+    category = models.CharField(max_length=50, choices=CATEGORIES, default=CATEGORIES[0][0])
 
     createdBy = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
