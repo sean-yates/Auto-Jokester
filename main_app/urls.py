@@ -11,4 +11,5 @@ urlpatterns = [
     path('allJokes', views.allJokes, name='allJokes'),
     path('submitjoke', views.submitjoke, name='submitjoke'),
     path('profile', views.profilePage, name='profilepage'),
+    path('myfavoritejokes', views.myfavoritejokes, name='myfavoritejokes'),
 ]
