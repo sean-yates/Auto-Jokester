@@ -16,6 +16,19 @@ def allJokes(request):
     return render(request, 'allJokes.html')
 
 def randomJoke(request):
+    import requests
+    headers = {
+        'Accept': 'application/json',
+        'User-Agent': 'My Library (https://github.com/sean-yates/Auto-Jokester)'
+    }
+    # data = {'User-Agent': 'My Library (https://github.com/sean-yates/Auto-Jokester)'}
+    response = requests.request("GET", 'https://icanhazdadjoke.com', headers=headers)
+    context = { 'response': response }
+    print(response.text)
+    return render(request, 'randomJoke.html', context)
+
+
+def randomJoke_old(request):
     # Ref. https://rapidapi.com/KegenGuyll/api/dad-jokes/endpoints
     # On left-hand side, click "Random" ==> select "GET Random Jokes"
     # On right-hand side, click "Code Snippets" --> select "Python" ==> "Requests" from dropdown menu
