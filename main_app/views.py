@@ -19,6 +19,9 @@ def allJokes(request):
 def submitjoke(request):
     return render(request, 'submitjoke.html')
 
+def postsubmit(request):
+    return render(request, 'postsubmit.html')
+
 def profilePage(request):
     return render(request, 'user/profilepage.html')
 

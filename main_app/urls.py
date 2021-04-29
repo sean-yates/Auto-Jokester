@@ -11,5 +11,6 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     path('allJokes', views.allJokes, name='allJokes'),
     path('submitjoke', views.submitjoke, name='submitjoke'),
+    path('postsubmit', views.postsubmit, name='postsubmit'),
     path('profile', views.profilePage, name='profilepage'),
 ]

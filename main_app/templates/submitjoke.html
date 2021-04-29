@@ -1,5 +1,27 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Hi!</h1>
+<h1>Add A Joke!</h1>
+
+<form action='postsubmit' method='post'>
+    {% csrf_token %}
+    <label>Joke:</label>
+    <input type='text'></input>
+    
+    <label for='category'>Category:</label>
+    <div class='dropdown'>
+    <select name='category' id='category'>
+        <option value="Dad Puns">Dad Puns</option>
+        <option value="Dog">Dog</option>
+        <option value="Knock Knock">Knock Knock</option>
+        <option value="Random">Random</option>
+        <option value="Sports">Sports</option>
+        <option value="Technology">Technology</option>
+        <option value="... Walks into a Bar">... Walks into a Bar</option>
+        <option value="Yo Mama">Yo Mama</option>
+    </select>
+    </div>
+    <br/>
+    <input type='submit' value='Submit'>
+</form>
 
 {% endblock %}
