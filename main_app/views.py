@@ -19,6 +19,9 @@ def allJokes(request):
 def submitjoke(request):
     return render(request, 'submitjoke.html')
 
+def profilePage(request):
+    return render(request, 'user/profilepage.html')
+
 def randomJoke(request):
     import requests
     headers = {
