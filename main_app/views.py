@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 # import requests
 import datetime
+from .forms import JokeForm
 
 API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 
@@ -19,6 +20,36 @@ def submitjoke(request):
     return render(request, 'submitjoke.html')
 
 def randomJoke(request):
+    import requests
+    headers = {
+        'Accept': 'application/json',
+        'User-Agent': 'My Library (https://github.com/sean-yates/Auto-Jokester)'
+    }
+    # data = {'User-Agent': 'My Library (https://github.com/sean-yates/Auto-Jokester)'}
+    response = requests.request("GET", 'https://icanhazdadjoke.com', headers=headers)
+    context = { 'response': response }
+
+    response_data = response.json()
+
+    print('\033[30;206;48;2;255;255;0m', response_data['joke'], '\033[0m')
+
+    newJoke = {
+        'joke':response_data['joke'], 
+        'source':'icanhazdadjoke.com',
+        'category':'Dad Joke',
+        'createdBy':None,
+        }
+
+    form = JokeForm(newJoke)
+    if form.is_valid():
+        new_joke = form.save(commit=False)
+        new_joke.save()
+
+    return render(request, 'randomJoke.html', context)
+
+
+
+def randomJoke_old(request):
     # Ref. https://rapidapi.com/KegenGuyll/api/dad-jokes/endpoints
     # On left-hand side, click "Random" ==> select "GET Random Jokes"
     # On right-hand side, click "Code Snippets" --> select "Python" ==> "Requests" from dropdown menu
