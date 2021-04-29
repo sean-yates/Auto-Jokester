@@ -22,6 +22,9 @@ def submitjoke(request):
 def postsubmit(request):
     return render(request, 'postsubmit.html')
 
+def profilePage(request):
+    return render(request, 'user/profilepage.html')
+
 def randomJoke(request):
     import requests
     headers = {
