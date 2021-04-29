@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 # import requests
 import datetime
+from .forms import JokeForm
 
 API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 
@@ -27,8 +28,25 @@ def randomJoke(request):
     # data = {'User-Agent': 'My Library (https://github.com/sean-yates/Auto-Jokester)'}
     response = requests.request("GET", 'https://icanhazdadjoke.com', headers=headers)
     context = { 'response': response }
-    print(response.text)
+
+    response_data = response.json()
+
+    print('\033[30;206;48;2;255;255;0m', response_data['joke'], '\033[0m')
+
+    newJoke = {
+        'joke':response_data['joke'], 
+        'source':'icanhazdadjoke.com',
+        'category':'Dad Joke',
+        'createdBy':None,
+        }
+
+    form = JokeForm(newJoke)
+    if form.is_valid():
+        new_joke = form.save(commit=False)
+        new_joke.save()
+
     return render(request, 'randomJoke.html', context)
+
 
 
 def randomJoke_old(request):
