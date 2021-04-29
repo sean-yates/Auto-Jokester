@@ -30,7 +30,7 @@
           <ul class="right">
             {% comment %} Put below code back before deployment {% endcomment %}
             {# {% if user.is_authenticated %} #}
-            <li><a href="{% url 'randomJoke' %}">All Jokes</a></li>
+            <li><a href="{% url 'allJokes' %}">All Jokes</a></li>
             <li><a href="{% url 'jokeById' %}">Submit a Joke</a></li>
             <li><a href="{% url 'jokeByType' %}">My Favorite Jokes</a></li>
             <li><a href="{% url 'jokeSearch' %}">My Profile</a></li>
@@ -49,7 +49,7 @@
     <main class="container">{% block content %} {% endblock %}</main>
     <footer class="page-footer brown lighten-1 z-depth-1">
       <div class="right">
-        All Rights Reserved, &copy; {% now "Y" %} Dog Collector &nbsp;
+        All Rights Reserved, &copy; {% now "Y" %} AutoJokester &nbsp;
       </div>
     </footer>
   </body>
