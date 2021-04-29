@@ -15,6 +15,9 @@ def home(request):
 def allJokes(request):
     return render(request, 'allJokes.html')
 
+def submitjoke(request):
+    return render(request, 'submitjoke.html')
+
 def randomJoke(request):
     # Ref. https://rapidapi.com/KegenGuyll/api/dad-jokes/endpoints
     # On left-hand side, click "Random" ==> select "GET Random Jokes"
