@@ -1,6 +1,11 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Hello!</h1>
+<br />
+<h1>{{ category.1 }}</h1>
+
+{% for joke in all %}
+<p>{{ joke }}</p>
+{% endfor %}
 
 <div class="container"></div>
 
