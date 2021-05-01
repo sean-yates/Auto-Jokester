@@ -182,7 +182,7 @@ def signup(request):
 
 
 
-def comments(request, joke_id):
+def joke_details(request, joke_id):
     joke = Joke.objects.get(id=joke_id)
     comment_form = CommentForm()
     context = {
@@ -195,7 +195,7 @@ def add_comment(request, joke_id):
     form = CommentForm(request.POST)
     if form.is_valid():
         new_comment = form.save(commit=False)
+        new_comment.user = request.user
         new_comment.joke_id = joke_id
-        # new_comment.user_id = need to figure out how it assigns it to current user
         new_comment.save()
-    return redirect('comments', joke_id=joke_id)
+    return redirect('joke_details', joke_id=joke_id)
