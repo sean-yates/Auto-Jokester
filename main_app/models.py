@@ -33,8 +33,23 @@ class Joke(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+    modified_date = models.DateTimeField(auto_now=True)
+
     appproved = models.BooleanField(default=False)
 
 
     def __str__(self):
         return f'{self.joke}'
+
+
+class Model(models.Model):
+    text = models.CharField(max_length=4000)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    modified_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.text}'
