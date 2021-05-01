@@ -42,10 +42,12 @@ class Joke(models.Model):
         return f'{self.joke}'
 
 
-class Model(models.Model):
+class Comment(models.Model):
     text = models.CharField(max_length=4000)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    joke = models.ForeignKey(Joke, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
