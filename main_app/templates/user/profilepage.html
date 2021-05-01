@@ -4,7 +4,11 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <div class="container">
-            <h1>This is my profile page!</h1>
+                  {% if user.is_authenticated %}
+                <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+                 {% else %}
+                    <p>Welcome, new user. Please log in.</p>
+                    {% endif %}
             
             <h1>Username:</h1>
             <p>Bio</p>
