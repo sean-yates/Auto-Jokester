@@ -20,7 +20,7 @@ def allJokes(request):
 
     joke_list = []
     for category in categories:
-        joke_in_category = Joke.objects.filter(category=category[0]).first()
+        joke_in_category = Joke.objects.filter(category=category[0]).order_by("?").first()
         category_joke = {
             'category': category,
             'joke': joke_in_category,
@@ -32,7 +32,7 @@ def allJokes(request):
         'categories': categories,
         'jokes': joke_list,
         }
-    print('context =', context)
+
     return render(request, 'allJokes.html', context)
 
 def submitjoke(request):
