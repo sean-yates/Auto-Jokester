@@ -37,6 +37,9 @@ def myfavoritejokes(request):
     # path('<str:category>_joke_by_id/', views.joke_by_id, name='joke_by_id'),
     # path('<str:category>_joke_search/', views.joke_search, name='joke_search'),
 
+def joke_category(request):
+    return render(request, 'joke_categories.html')
+
 def joke_random(request, category):
     import requests
     headers = {
