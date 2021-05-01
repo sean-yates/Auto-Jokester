@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 # import requests
 import datetime
 from .models import Joke, CATEGORIES, Comment
-from .forms import JokeForm
+from .forms import JokeForm, CommentForm
 
 # API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 
@@ -185,7 +185,18 @@ def signup(request):
 
 def comments(request, joke_id):
     joke = Joke.objects.get(id=joke_id)
+    comment_form = CommentForm()
     context = {
-        'joke': joke
+        'joke': joke,
+        'comment_form': comment_form
     }
     return render(request, 'comments.html', context)
+
+def add_comment(request, joke_id):
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        new_comment = form.save(commit=False)
+        new_comment.joke_id = joke_id
+        # new_comment.user_id = need to figure out how it assigns it to current user
+        new_comment.save()
+    return redirect('comments', joke_id=joke_id)
