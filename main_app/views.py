@@ -43,11 +43,29 @@ def myfavoritejokes(request):
     # path('<str:category>_joke_search/', views.joke_search, name='joke_search'),
 
 def joke_category(request, category):
-    print('!!!!!!!!!!!!!!', category)
-    j_cat = Joke.category
+    if category == 'dad':
+        category_code = 'D'
+    elif category == 'yomama':
+        category_code = 'Y'
+    elif category == 'chucknorris':
+        category_code = 'H'
+    elif category == 'random':
+        category_code = 'R'
+    elif category == 'pun':
+        category_code = 'P'
+    elif category == 'knockknock':
+        category_code = 'K'
+    elif category == 'bar':
+        category_code = 'B'
+    elif category == 'computer':
+        category_code = 'C'
+    elif category == 'sports':
+        category_code = 'S'
+    elif category == 'animal':
+        category_code = 'A'
 
-    db_jokes = Joke.objects.filter(category = 'D')
-    return render(request, 'joke_category.html', {'all': db_jokes})
+    db_jokes = Joke.objects.filter(category = category_code)
+    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category})
 
 def joke_random(request, category):
     import requests
