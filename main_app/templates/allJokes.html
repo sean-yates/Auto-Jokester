@@ -9,11 +9,16 @@
     rel="stylesheet"
   />
 
-        {% for joke in jokes %} 
-            <div class="container">
+        {% for joke in jokes %}
+          {% if joke.joke != None%}
+            <div class="container card">
+              <div class="container card-content">
                 <h2>{{joke.joke}}</h2>
                 <a href="{% url 'joke_random' joke.category.1|lower|cut:' ' %}" class="waves-effect waves-light btn"><i class="material-icons left">view_headline</i>See more {{joke.category.1}} jokes</a>
+                <a href="{% url 'joke_details' joke.joke.id %}" class="waves-effect waves-light btn"><i class="material-icons left">view_headline</i>Comments</a>
+              </div>
             </div>
+          {% endif %}
         {% endfor %}
     </body>
 
