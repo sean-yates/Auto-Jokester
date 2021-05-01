@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 # import requests
 import datetime
+import random
 from .models import Joke, CATEGORIES, Comment
 from .forms import JokeForm, CommentForm
 
@@ -12,7 +13,11 @@ from .forms import JokeForm, CommentForm
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    db_jokes = Joke.objects.all()
+    random_joke = db_jokes[(random.randint(0,(len(db_jokes)) - 1 ))]
+    print(random_joke)
+    return render(request, 'home.html', {'random_joke': random_joke})
+
 
 def allJokes(request):
     # jokes = Joke.objects.order_by('id')

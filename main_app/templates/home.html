@@ -1,6 +1,32 @@
-{% extends 'base.html' %}
 
-<h1>I used to be addicted to soap</h1>
-<p>but I'm clean now</p>
+{% extends 'base.html' %} {% block content %}
 
-<a href="{% url 'joke_random' %}">Random Joke</a>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="container">
+
+            {% if user.is_authenticated %}
+                <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+                 {% else %}
+                    <p>Welcome! Please log in.</p>
+                    {% endif %}
+                <h1>{{random_joke}}</h1>
+
+<div class="container">
+<p>Daily Joke Goes Here</p>
+
+</div>
+
+
+
+</div>
+
+
+
+
+</body>
+
+{% endblock %}
+
