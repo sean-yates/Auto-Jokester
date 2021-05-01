@@ -9,8 +9,8 @@ urlpatterns = [
     path('joke_random/<str:category_name>/', views.joke_random, name='joke_random'),
     path('<str:category>_joke_by_id/', views.joke_by_id, name='joke_by_id'),
     path('<str:category>_joke_search/', views.joke_search, name='joke_search'),
-    path('jokes/<int:joke_id>/comments/', views.comments, name='joke_comments'),
-    path('jokes/<int:joke_id>/comments/add_comment/', views.add_comment, name='add_comment'),
+    path('jokes/<int:joke_id>/', views.joke_details, name='joke_details'),
+    path('jokes/<int:joke_id>/add_comment/', views.add_comment, name='add_comment'),
     path('<str:category>/', views.joke_category, name='joke_category'),
 
     path('accounts/signup/', views.signup, name='signup'),

@@ -52,7 +52,29 @@ def myfavoritejokes(request):
     # path('<str:category>_joke_search/', views.joke_search, name='joke_search'),
 
 def joke_category(request, category):
-    return render(request, 'joke_category.html')
+    if category == 'dad':
+        category_code = 'D'
+    elif category == 'yomama':
+        category_code = 'Y'
+    elif category == 'chucknorris':
+        category_code = 'H'
+    elif category == 'random':
+        category_code = 'R'
+    elif category == 'pun':
+        category_code = 'P'
+    elif category == 'knockknock':
+        category_code = 'K'
+    elif category == 'bar':
+        category_code = 'B'
+    elif category == 'computer':
+        category_code = 'C'
+    elif category == 'sports':
+        category_code = 'S'
+    elif category == 'animal':
+        category_code = 'A'
+
+    db_jokes = Joke.objects.filter(category = category_code)
+    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category})
 
 def joke_random(request, category_name):
     import requests
@@ -188,7 +210,7 @@ def signup(request):
 
 
 
-def comments(request, joke_id):
+def joke_details(request, joke_id):
     joke = Joke.objects.get(id=joke_id)
     comment_form = CommentForm()
     context = {
@@ -201,7 +223,7 @@ def add_comment(request, joke_id):
     form = CommentForm(request.POST)
     if form.is_valid():
         new_comment = form.save(commit=False)
+        new_comment.user = request.user
         new_comment.joke_id = joke_id
-        # new_comment.user_id = need to figure out how it assigns it to current user
         new_comment.save()
-    return redirect('comments', joke_id=joke_id)
+    return redirect('joke_details', joke_id=joke_id)
