@@ -9,11 +9,13 @@ CATEGORIES = (
     # ('R', 'Random'),
     ('Y', 'Yo Mama'),
     ('D', 'Dad'),
+    ('H', 'Chuck Norris'),
+    ('P', 'Pun'),
     ('K', 'Knock Knock'),
     ('B', 'Bar'),
     ('C', 'Computer'),
     ('S', 'Sports'),
-    ('A', 'Animal')
+    ('A', 'Animal'),
 )
 
 class Joke(models.Model):

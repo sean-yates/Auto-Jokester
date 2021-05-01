@@ -39,42 +39,53 @@ def myfavoritejokes(request):
 
 def joke_random(request, category):
     import requests
+    headers = {
+        'Accept': 'application/json',
+        'User-Agent': 'My Library (https://github.com/sean-yates/Auto-Jokester)'
+    }
+
     if category == 'dad':
-        # From icanhazdadjoke.com
-        headers = {
-            'Accept': 'application/json',
-            'User-Agent': 'My Library (https://github.com/sean-yates/Auto-Jokester)'
-        }
-        response = requests.request("GET", 'https://icanhazdadjoke.com', headers=headers)
+        url = 'https://icanhazdadjoke.com'
     elif category == 'yomama':
-        # From icanhazdadjoke.com
-        headers = {
-            'Accept': 'application/json',
-            'User-Agent': 'My Library (https://github.com/sean-yates/Auto-Jokester)'
-        }
-        response = requests.request("GET", 'https://api.yomomma.info', headers=headers)
+        url = 'https://api.yomomma.info'
+    elif category == 'chucknorris':
+        url = 'http://api.icndb.com/jokes/random'
+        # url = 'https://api.chucknorris.io/jokes/random'
+    elif category == 'pun':
+        url = 'https://v2.jokeapi.dev/joke/Pun?blacklistFlags=nsfw,religious,political,racist,sexist,explicit'
+        # types: single (joke), twopart (setup, delivery)
+
     elif category == 'knockknock':
-        print('category =', category)
+        print('\033[30;206;48;2;255;255;0m', 'category =', category, '\033[0m')
     elif category == 'bar':
-        print('category =', category)
+        print('\033[30;206;48;2;255;255;0m', 'category =', category, '\033[0m')
     elif category == 'computer':
-        print('category =', category)
+        url = 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit'
+        print('\033[30;206;48;2;255;255;0m', 'category =', category, '\033[0m')
     elif category == 'sports':
-        print('category =', category)
+        print('\033[30;206;48;2;255;255;0m', 'category =', category, '\033[0m')
     elif category == 'animal':
-        print('category =', category)
+        print('\033[30;206;48;2;255;255;0m', 'category =', category, '\033[0m')
+    else:
+        print("\033[30;206;48;2;255;255;0mI don't know how you ended up here.\033[0m")
 
-
+    response = requests.request("GET", url, headers=headers)
 
     context = { 'response': response }
 
     response_data = response.json()
 
-    print('\033[30;206;48;2;255;255;0m', response_data['joke'], '\033[0m')
 
-    save_joke_to_db(response_data['joke'])
+    if category == 'dad' or category == 'yomama':
+        pass
+        print('\033[30;206;48;2;255;255;0m', 'response_data["joke"] =', response_data['joke'], '\033[0m')
+    elif category == 'chucknorris':
+        pass
+        print('\033[30;206;48;2;255;255;0m', 'response_data["value"]["joke"] =', response_data['value']['joke'], '\033[0m')
 
-    return render(request, 'randomJoke.html', context)
+    # save_joke_to_db(response_data['joke'])
+
+    return render(request, 'joke_random.html', context)
 
 def random_dad_joke(request):
     # From icanhazdadjoke.com
@@ -92,7 +103,7 @@ def random_dad_joke(request):
 
     save_joke_to_db(response_data['joke'])
 
-    return render(request, 'randomJoke.html', context)
+    return render(request, 'joke_random.html', context)
 
 def searchJoke(request):
     # From icanhazdadjoke.com
@@ -110,7 +121,7 @@ def searchJoke(request):
     
     save_joke_to_db(response_data['results'][0]['joke'])
 
-    return render(request, 'randomJoke.html', context)
+    return render(request, 'joke_search.html', context)
 
 def save_joke_to_db(incoming_joke):
     existing_joke = Joke.objects.filter(joke__contains=incoming_joke)
