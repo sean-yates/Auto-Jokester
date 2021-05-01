@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 # import requests
 import datetime
-from .models import Joke, CATEGORIES
+from .models import Joke, CATEGORIES, Comment
 from .forms import JokeForm
 
 # API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
@@ -176,3 +176,12 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+
+
+def comments(request, joke_id):
+    joke = Joke.objects.get(id=joke_id)
+    context = {
+        'joke': joke
+    }
+    return render(request, 'comments.html', context)
