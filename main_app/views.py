@@ -17,7 +17,12 @@ def home(request):
 def allJokes(request):
     # jokes = Joke.objects.order_by('id')
     categories = CATEGORIES
-    context = {'categories': categories}
+    jokes = Joke.objects.order_by('id')
+    print('\033[30;206;48;2;255;255;0m', 'jokes =', jokes, '\033[0m')
+    context = {
+        'categories': categories,
+        'jokes': jokes,
+        }
     print('context =', context)
     return render(request, 'allJokes.html', context)
 
@@ -49,15 +54,18 @@ def joke_random(request, category):
 
     if category == 'dad':
         url = 'https://icanhazdadjoke.com'
+        arg_cat = 'D'
     elif category == 'yomama':
         url = 'https://api.yomomma.info'
+        arg_cat = 'Y'
     elif category == 'chucknorris':
         url = 'http://api.icndb.com/jokes/random'
+        arg_cat = 'H'
         # url = 'https://api.chucknorris.io/jokes/random'
     elif category == 'pun':
         url = 'https://v2.jokeapi.dev/joke/Pun?blacklistFlags=nsfw,religious,political,racist,sexist,explicit'
         # types: single (joke), twopart (setup, delivery)
-
+        arg_cat = 'P'
     elif category == 'knockknock':
         print('\033[30;206;48;2;255;255;0m', 'category =', category, '\033[0m')
     elif category == 'bar':
@@ -65,6 +73,7 @@ def joke_random(request, category):
     elif category == 'computer':
         url = 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit'
         print('\033[30;206;48;2;255;255;0m', 'category =', category, '\033[0m')
+        arg_cat = 'C'
     elif category == 'sports':
         print('\033[30;206;48;2;255;255;0m', 'category =', category, '\033[0m')
     elif category == 'animal':
@@ -86,7 +95,7 @@ def joke_random(request, category):
         pass
         print('\033[30;206;48;2;255;255;0m', 'response_data["value"]["joke"] =', response_data['value']['joke'], '\033[0m')
 
-    # save_joke_to_db(response_data['joke'])
+    save_joke_to_db(response_data['joke'], url, arg_cat)
 
     return render(request, 'joke_random.html', context)
 
@@ -126,14 +135,14 @@ def searchJoke(request):
 
     return render(request, 'joke_search.html', context)
 
-def save_joke_to_db(incoming_joke):
+def save_joke_to_db(incoming_joke, source, category):
     existing_joke = Joke.objects.filter(joke__contains=incoming_joke)
     print('\033[30;206;48;2;255;0;0m', len(existing_joke))
     if len(existing_joke) == 0:
         newJoke = {
             'joke':incoming_joke, 
-            'source':'icanhazdadjoke.com',
-            'category':'D',
+            'source':source,
+            'category':category,
             'createdBy':None,
             }
 
