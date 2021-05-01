@@ -16,8 +16,8 @@ def home(request):
 
 def allJokes(request):
     # jokes = Joke.objects.order_by('id')
-    jokes = CATEGORIES
-    context = {'jokes': jokes}
+    categories = CATEGORIES
+    context = {'categories': categories}
     print('context =', context)
     return render(request, 'allJokes.html', context)
 

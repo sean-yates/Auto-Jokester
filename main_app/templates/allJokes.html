@@ -3,10 +3,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-        {% for joke in jokes %} 
+        {% for category in categories %} 
             <div class="container">
-                <h1>I am a container for a '{{joke.1}}' joke</h1>
-                <a href="{% url 'joke_random' joke.1|lower|cut:' ' %}" class="waves-effect waves-light btn"><i class="material-icons left">view_headline</i>See more {{joke.1}} jokes</a>
+                <h1>I am a container for a '{{category.1}}' joke</h1>
+                <a href="{% url 'joke_random' category.1|lower|cut:' ' %}" class="waves-effect waves-light btn"><i class="material-icons left">view_headline</i>See more {{category.1}} jokes</a>
             </div>
         {% endfor %}
     </body>
