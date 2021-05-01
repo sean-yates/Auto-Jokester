@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Joke
+from .models import Joke, Comment
 
 class JokeForm(ModelForm):
   class Meta:
@@ -10,3 +10,11 @@ class JokeForm(ModelForm):
         'category', 
         'createdBy',
         ]
+
+
+class CommentForm(ModelForm):
+  class Meta:
+    model = Comment
+    fields = [
+      'text'
+    ]
