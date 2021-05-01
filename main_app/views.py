@@ -5,8 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 # import requests
 import datetime
-from .models import Joke, CATEGORIES
-from .forms import JokeForm
+from .models import Joke, CATEGORIES, Comment
+from .forms import JokeForm, CommentForm
 
 # API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 
@@ -41,6 +41,9 @@ def myfavoritejokes(request):
     # path('<str:category>_joke_random/', views.joke_random, name='joke_random'),
     # path('<str:category>_joke_by_id/', views.joke_by_id, name='joke_by_id'),
     # path('<str:category>_joke_search/', views.joke_search, name='joke_search'),
+
+def joke_category(request, category):
+    return render(request, 'joke_category.html')
 
 def joke_random(request, category):
     import requests
@@ -173,3 +176,23 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+
+
+def comments(request, joke_id):
+    joke = Joke.objects.get(id=joke_id)
+    comment_form = CommentForm()
+    context = {
+        'joke': joke,
+        'comment_form': comment_form
+    }
+    return render(request, 'comments.html', context)
+
+def add_comment(request, joke_id):
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        new_comment = form.save(commit=False)
+        new_comment.joke_id = joke_id
+        # new_comment.user_id = need to figure out how it assigns it to current user
+        new_comment.save()
+    return redirect('comments', joke_id=joke_id)
