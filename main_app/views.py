@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 # import requests
 import datetime
@@ -40,15 +41,19 @@ def allJokes(request):
 
     return render(request, 'allJokes.html', context)
 
+@login_required
 def submitjoke(request):
     return render(request, 'submitjoke.html')
 
+@login_required
 def postsubmit(request):
     return render(request, 'postsubmit.html')
 
+@login_required
 def profilePage(request):
     return render(request, 'user/profilepage.html')
 
+@login_required
 def myfavoritejokes(request):
     return render(request, 'user/myfavoritejokes.html')
 
@@ -224,6 +229,7 @@ def joke_details(request, joke_id):
     }
     return render(request, 'comments.html', context)
 
+@login_required
 def add_comment(request, joke_id):
     form = CommentForm(request.POST)
     if form.is_valid():
