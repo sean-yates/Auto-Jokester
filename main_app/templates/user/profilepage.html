@@ -1,15 +1,38 @@
 {% extends 'base.html' %} {% block content %}
   <body>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <div class="container">
 
-        <div class="container">
-                  {% if user.is_authenticated %}
-                <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
-                <p><a href="{% url 'editprofile' %}">Edit Profile</a></p>
-            
-            <h1>Username: {{ user.get_username }} </h1>
+      {% if user.is_authenticated %}
+        <h2>Welcome, {{ user.get_username }}!</h2>
+        {% endif %}
+        {% if user.profile.profile_pic.url %}
+            <img src="{{user.profile.profile_pic.url}}" width="200" height="200">
+        {% endif %}
+        
+        <p><a href="{% url 'editprofile' %}">Edit Profile</a></p>
+
+        {% if user.is_authenticated %}
+        <h1>{{ user.get_username }} </h1>
+        
+            {% if user.profile.bio %}
             <p>{{user.profile.bio}}</p>
+            {% endif %}
+            {% if user.profile.facebook_url %}
+            <p>{{user.profile.facebook_url}}</p>
+            {% endif %}
+            {% if user.profile.twitter_url %}
+            <p>{{user.profile.twitter_url}}</p>
+            {% endif %}
+            {% if user.profile.instagram_url %}
+            <p>{{user.profile.instagram_url}}</p>
+            {% endif %}
+            {% if user.profile.twitter_url %}
+            <p>{{user.profile.twitter_url}}</p>
+
+            {% endif %}
+          
 
               {% else %}
                     <p>Welcome, new user. Please log in.</p>

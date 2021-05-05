@@ -65,6 +65,11 @@ class Comment(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
+    profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
+    website_url = models.TextField(max_length=255, blank=True, null=True)
+    facebook_url = models.TextField(max_length=255, blank=True, null=True)
+    twitter_url = models.TextField(max_length=255, blank=True, null=True)
+    instagram_url = models.TextField(max_length=255, blank=True, null=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
