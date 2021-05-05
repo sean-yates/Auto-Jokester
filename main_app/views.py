@@ -251,3 +251,12 @@ def delete_comment(request, joke_id, comment_id):
 class Update_comment(LoginRequiredMixin, UpdateView):
     model = Comment
     fields = ['text']
+
+
+@login_required
+def unapproved_jokes(request):
+    context = {
+        'jokes': [{'joke':'hello'}]
+    }
+    
+    return render(request, 'unapproved_jokes.html', context)

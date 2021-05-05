@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+<body>
+    {% for joke in jokes %}
+        <div class="container card">
+            <div class="container card-content">
+                <h2>{{joke.joke}}</h2>
+            </div>
+        </div>
+    {% endfor %}
+</body>
+
+{% endblock %}
