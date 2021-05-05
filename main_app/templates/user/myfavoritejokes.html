@@ -15,9 +15,11 @@
 
   <div>
   {% if user.favorites.count %}
-  {% for favorite in user.favorites.all %}
-  {{joke.favorite}}
+  <ul>
+  {% for joke in user.favorites.all %}
+  <li><h1>{{joke}}</h1></li>
   {% endfor %}
+  </ul>
   {% else %}
   <h5>No Favorite Jokes Yet </h5>
   {% endif %}
