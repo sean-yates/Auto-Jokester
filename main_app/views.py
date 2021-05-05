@@ -67,6 +67,11 @@ def assoc_favorite(request, joke_id):
     Joke.objects.get(id=joke_id).favorites.add(request.user.id)
     return redirect('allJokes')
 
+@login_required
+def assoc_dislike(request, joke_id):
+    Joke.objects.get(id=joke_id).dislikes.add(request.user.id)
+    return redirect('allJokes')
+
 def joke_category(request, category):
 
     user = User.objects.get(id=request.user.id)

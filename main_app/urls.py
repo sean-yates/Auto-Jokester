@@ -20,4 +20,5 @@ urlpatterns = [
     path('jokes/<int:joke_id>/add_comment/', views.add_comment, name='add_comment'),
     path('<str:category>/', views.joke_category, name='joke_category'),
     path('jokes/<int:joke_id>/assoc_favorite/', views.assoc_favorite, name='assoc_favorite'),
+    path('jokes/<int:joke_id>/assoc_dislike/', views.assoc_dislike, name='assoc_dislike'),
 ]
