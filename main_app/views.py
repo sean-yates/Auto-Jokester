@@ -255,8 +255,9 @@ class Update_comment(LoginRequiredMixin, UpdateView):
 
 @login_required
 def unapproved_jokes(request):
+    jokes_for_review = Joke.objects.filter(approved=False, reviewed=False)
     context = {
-        'jokes': [{'joke':'hello'}]
+        'jokes': jokes_for_review
     }
     
     return render(request, 'unapproved_jokes.html', context)

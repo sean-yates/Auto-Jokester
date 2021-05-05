@@ -35,7 +35,9 @@ class Joke(models.Model):
 
     modified_date = models.DateTimeField(auto_now=True)
 
-    appproved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
+
+    reviewed = models.BooleanField(default=False)
 
 
     def __str__(self):
