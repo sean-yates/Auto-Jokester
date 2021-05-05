@@ -19,6 +19,12 @@ urlpatterns = [
     path('jokes/<int:joke_id>/comments/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
     path('jokes/<int:joke_id>/comments/<int:pk>/update/', views.Update_comment.as_view(), name='update_comment'),
     path('<str:category>/', views.joke_category, name='joke_category'),
+    path('editprofile', views.editprofile, name='editprofile'),
+
+    path('jokes/unapproved/', views.unapproved_jokes, name='unapproved_jokes'),
+    path('jokes/<int:joke_id>/approve', views.approve_joke, name='approve_joke'),
+    path('jokes/<int:joke_id>/reject', views.reject_joke, name='reject_joke'),
+
     path('jokes/<int:joke_id>/assoc_favorite/', views.assoc_favorite, name='assoc_favorite'),
     path('jokes/<int:joke_id>/assoc_dislike/', views.assoc_dislike, name='assoc_dislike'),
     path('editprofile', views.editprofile, name='editprofile')
