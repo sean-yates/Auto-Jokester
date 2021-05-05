@@ -21,7 +21,8 @@ urlpatterns = [
     path('<str:category>/', views.joke_category, name='joke_category'),
     path('editprofile', views.editprofile, name='editprofile')
 
+    path('jokes/unapproved/', views.unapproved_jokes, name='unapproved_jokes'),
+    path('jokes/<int:joke_id>/approve', views.approve_joke, name='approve_joke'),
+    path('jokes/<int:joke_id>/reject', views.reject_joke, name='reject_joke'),
+
 ]
-
-
- 
