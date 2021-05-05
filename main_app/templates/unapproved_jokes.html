@@ -4,6 +4,9 @@
         <div class="container card">
             <div class="container card-content">
                 <h2>{{joke.joke}}</h2>
+                <div class="card-action">
+                    <a href="{% url 'approve_joke' joke.id %}">Approve</a>
+                  </div>
             </div>
         </div>
     {% endfor %}

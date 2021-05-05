@@ -23,4 +23,5 @@ urlpatterns = [
     path('<str:category>/', views.joke_category, name='joke_category'),
 
     path('jokes/unapproved/', views.unapproved_jokes, name='unapproved_jokes'),
+    path('jokes/<int:joke_id>/approve', views.approve_joke, name='approve_joke'),
 ]

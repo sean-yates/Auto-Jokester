@@ -261,3 +261,11 @@ def unapproved_jokes(request):
     }
     
     return render(request, 'unapproved_jokes.html', context)
+
+@login_required
+def approve_joke(request,joke_id):
+    joke = Joke.objects.get(id=joke_id)
+    joke.reviewed = True
+    joke.approved = True
+    joke.save()
+    return redirect('unapproved_jokes')
