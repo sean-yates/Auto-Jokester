@@ -24,4 +24,6 @@ urlpatterns = [
 
     path('jokes/unapproved/', views.unapproved_jokes, name='unapproved_jokes'),
     path('jokes/<int:joke_id>/approve', views.approve_joke, name='approve_joke'),
+    path('jokes/<int:joke_id>/reject', views.reject_joke, name='reject_joke'),
+
 ]

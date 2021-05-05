@@ -269,3 +269,10 @@ def approve_joke(request,joke_id):
     joke.approved = True
     joke.save()
     return redirect('unapproved_jokes')
+
+@login_required
+def reject_joke(request,joke_id):
+    joke = Joke.objects.get(id=joke_id)
+    joke.reviewed = True
+    joke.save()
+    return redirect('unapproved_jokes')

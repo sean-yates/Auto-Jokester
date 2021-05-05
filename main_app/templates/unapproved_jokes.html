@@ -6,6 +6,7 @@
                 <h2>{{joke.joke}}</h2>
                 <div class="card-action">
                     <a href="{% url 'approve_joke' joke.id %}">Approve</a>
+                    <a href="{% url 'reject_joke' joke.id %}">Reject</a>
                   </div>
             </div>
         </div>
