@@ -4,14 +4,12 @@ from . import views
 # Paths/Routes
 urlpatterns = [
     path('', views.home, name='home'),
-
+    path('profile/', views.profilePage, name='profilepage'),
     path('allJokes/', views.allJokes, name='allJokes'),
     path('submitjoke/', views.submitjoke, name='submitjoke'),
     path('myfavoritejokes/', views.myfavoritejokes, name='myfavoritejokes'),
-    path('profile/', views.profilePage, name='profilepage'),
     path('accounts/signup/', views.signup, name='signup'),
     path('postsubmit/', views.postsubmit, name='postsubmit'),
-    
     path('joke_random/', views.joke_random, name='joke_random'),
     path('joke_random/<str:category_name>/', views.joke_random, name='joke_random'),
     path('<str:category>_joke_by_id/', views.joke_by_id, name='joke_by_id'),
@@ -21,4 +19,9 @@ urlpatterns = [
     path('jokes/<int:joke_id>/comments/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
     path('jokes/<int:joke_id>/comments/<int:pk>/update/', views.Update_comment.as_view(), name='update_comment'),
     path('<str:category>/', views.joke_category, name='joke_category'),
+    path('editprofile', views.editprofile, name='editprofile')
+
 ]
+
+
+ 
