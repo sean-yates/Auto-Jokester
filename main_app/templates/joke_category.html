@@ -6,6 +6,19 @@
 
 {% for joke in all %}
 <div class="container">
+  {% if joke in user.favorites.all %} {% elif joke in user.dislikes.all %}
+  {%else%}
   <p>{{ joke }}</p>
+  <form action="{% url 'assoc_favorite' joke.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn">Favorite</button>
+  </form>
+  <br />
+  <form action="{% url 'assoc_dislike' joke.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn">Dislike</button>
+  </form>
+  <hr />
+  {% endif %}
 </div>
 {% endfor %} {% endblock %}
