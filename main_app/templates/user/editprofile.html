@@ -7,7 +7,9 @@
             <p>THIS IS WHERE IM GONNA EDIT THE PROFILE</P>
             <form action="" method="post">
             {% csrf_token %}
+            {{u_form}}
             {{p_form}}
+        
             <input type="submit">
             </form>
         </div>

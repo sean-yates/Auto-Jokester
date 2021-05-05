@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Joke, Comment, Profile
+from .models import Joke, Comment, Profile, User
 
 class JokeForm(ModelForm):
   class Meta:
@@ -27,3 +27,7 @@ class ProfileForm(ModelForm):
     ]
 
 
+class UserUpdateForm(ModelForm):
+    class Meta:
+        model=User
+        fields=['username']

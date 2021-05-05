@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 import datetime
 import random
 from .models import Joke, CATEGORIES, Comment, Profile
-from .forms import JokeForm, CommentForm, ProfileForm
+from .forms import JokeForm, CommentForm, ProfileForm, UserUpdateForm
 
 # API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 
@@ -51,31 +51,22 @@ def profilePage(request):
 
 
 def editprofile(request):
-    messages = ''
     if request.method == 'POST':
         p_form = ProfileForm(request.POST,request.FILES,instance=request.user.profile)
-        if p_form.is_valid():
+        u_form = UserUpdateForm(request.POST,instance=request.user)
+        if p_form.is_valid() and u_form.is_valid():
             p_form.save()
+            u_form.save()
+            print(p_form)
             return redirect('/profile/')
     else:
         p_form = ProfileForm(instance=request.user)
-    context={'p_form': p_form}
+        u_form = UserUpdateForm(instance=request.user.profile)
+        print('hey!!!', p_form)
+    context={'p_form': p_form, 'u_form': u_form}
     return render(request, 'user/editprofile.html',context )
 
 
-# def editprofile(request):
-#     form = ProfileForm()
-#     error_message = ''
-#     if request.method == 'POST':
-#         form = ProfileForm(request.POST)
-#     if form.is_valid():
-#         updated_form = ProfileForm().save
-#         return redirect('profile/')
-#     else:
-#         error_message = 'Invalid profile - try again'
-#     editprofileform = ProfileForm()
-#     context = {'editprofileform': editprofileform}
-#     return render(request, 'user/editprofile.html', context)
 
 def myfavoritejokes(request):
     return render(request, 'user/myfavoritejokes.html')
