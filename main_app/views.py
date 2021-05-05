@@ -4,12 +4,13 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # import requests
 import datetime
 import random
-from .models import Joke, CATEGORIES, Comment
-from .forms import JokeForm, CommentForm
+from .models import Joke, CATEGORIES, Comment, Profile
+from .forms import JokeForm, CommentForm, ProfileForm, UserUpdateForm
 
 # API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 
@@ -54,6 +55,24 @@ def postsubmit(request):
 def profilePage(request):
     return render(request, 'user/profilepage.html')
 
+
+def editprofile(request):
+    if request.method == 'POST':
+        p_form = ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        u_form = UserUpdateForm(request.POST,instance=request.user)
+        if p_form.is_valid() and u_form.is_valid():
+            p_form.save()
+            u_form.save()
+            print(p_form)
+            return redirect('/profile/')
+    else:
+        p_form = ProfileForm(instance=request.user)
+        u_form = UserUpdateForm(instance=request.user.profile)
+        print('hey!!!', p_form)
+    context={'p_form': p_form, 'u_form': u_form}
+    return render(request, 'user/editprofile.html',context )
+
+
 @login_required
 def myfavoritejokes(request):
     return render(request, 'user/myfavoritejokes.html')
@@ -96,12 +115,16 @@ def joke_category(request, category):
         category_code = 'S'
     elif category == 'animal':
         category_code = 'A'
+ 
+
 
     db_jokes = Joke.objects.filter(category = category_code)
 
     jokes_without_action = Joke.objects.exclude(id__in = user.favorites.all().values_list('id'))
 
     return render(request, 'joke_category.html', {'all': db_jokes, 'category': category, 'jokes_without_action': jokes_without_action})
+    print(db_jokes)
+    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category})
 
 def joke_random(request, category_name):
     import requests
@@ -255,3 +278,15 @@ def add_comment(request, joke_id):
         new_comment.joke_id = joke_id
         new_comment.save()
     return redirect('joke_details', joke_id=joke_id)
+
+
+@login_required
+def delete_comment(request, joke_id, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    if comment.user == request.user:
+        comment.delete()
+    return redirect('joke_details',joke_id=joke_id)
+
+class Update_comment(LoginRequiredMixin, UpdateView):
+    model = Comment
+    fields = ['text']

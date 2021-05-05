@@ -1,17 +1,19 @@
 {% extends 'base.html' %} {% block content %}
-   <body>
+  <body>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <div class="container">
                   {% if user.is_authenticated %}
                 <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
-                 {% else %}
+                <p><a href="{% url 'editprofile' %}">Edit Profile</a></p>
+            
+            <h1>Username: {{ user.get_username }} </h1>
+            <p>{{user.profile.bio}}</p>
+
+              {% else %}
                     <p>Welcome, new user. Please log in.</p>
                     {% endif %}
-            
-            <h1>Username:</h1>
-            <p>Bio</p>
             <h1>Games Won: -20</h1>
             <h1>Games Lost: 20</h1>
             <p>View all submitted jokes</p>
