@@ -18,4 +18,5 @@ urlpatterns = [
     path('submitjoke', views.submitjoke, name='submitjoke'),
     path('postsubmit', views.postsubmit, name='postsubmit'),
     path('myfavoritejokes', views.myfavoritejokes, name='myfavoritejokes'),
+    path('editprofile', views.editprofile, name='editprofile'),
 ]

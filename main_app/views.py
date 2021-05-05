@@ -6,8 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 # import requests
 import datetime
 import random
-from .models import Joke, CATEGORIES, Comment
-from .forms import JokeForm, CommentForm
+from .models import Joke, CATEGORIES, Comment, Profile
+from .forms import JokeForm, CommentForm, ProfileForm
 
 # API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 
@@ -48,6 +48,34 @@ def postsubmit(request):
 
 def profilePage(request):
     return render(request, 'user/profilepage.html')
+
+
+def editprofile(request):
+    messages = ''
+    if request.method == 'POST':
+        p_form = ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        if p_form.is_valid():
+            p_form.save()
+            return redirect('/profile/')
+    else:
+        p_form = ProfileForm(instance=request.user)
+    context={'p_form': p_form}
+    return render(request, 'user/editprofile.html',context )
+
+
+# def editprofile(request):
+#     form = ProfileForm()
+#     error_message = ''
+#     if request.method == 'POST':
+#         form = ProfileForm(request.POST)
+#     if form.is_valid():
+#         updated_form = ProfileForm().save
+#         return redirect('profile/')
+#     else:
+#         error_message = 'Invalid profile - try again'
+#     editprofileform = ProfileForm()
+#     context = {'editprofileform': editprofileform}
+#     return render(request, 'user/editprofile.html', context)
 
 def myfavoritejokes(request):
     return render(request, 'user/myfavoritejokes.html')
