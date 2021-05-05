@@ -23,6 +23,7 @@
       {% if user == comment.user  %}
         <div class="card-action">
           <a href="{% url 'delete_comment' joke.id comment.id %}">Delete</a>
+          <a href="{% url 'update_comment' joke.id comment.id %}">Edit</a>
         </div>
       {% endif %}
     </div>
