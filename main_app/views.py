@@ -242,5 +242,7 @@ def add_comment(request, joke_id):
 
 @login_required
 def delete_comment(request, joke_id, comment_id):
-    Comment.objects.filter(id=comment_id).delete()
+    comment = Comment.objects.get(id=comment_id)
+    if comment.user == request.user:
+        comment.delete()
     return redirect('joke_details',joke_id=joke_id)
