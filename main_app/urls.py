@@ -18,5 +18,7 @@ urlpatterns = [
     path('<str:category>_joke_search/', views.joke_search, name='joke_search'),
     path('jokes/<int:joke_id>/', views.joke_details, name='joke_details'),
     path('jokes/<int:joke_id>/add_comment/', views.add_comment, name='add_comment'),
+    path('jokes/<int:joke_id>/comments/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
+    path('jokes/<int:joke_id>/comments/<int:pk>/update/', views.Update_comment.as_view(), name='update_comment'),
     path('<str:category>/', views.joke_category, name='joke_category'),
 ]

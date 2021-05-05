@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
+{{ user}}
+
 <h1>Formatted joke should go here</h1>
 <p>{{joke.joke}}</p>
 
@@ -18,6 +20,12 @@
       <span class="card-title">
         {{comment.user}}: {{comment.text}}
       </span>
+      {% if user == comment.user  %}
+        <div class="card-action">
+          <a href="{% url 'delete_comment' joke.id comment.id %}">Delete</a>
+          <a href="{% url 'update_comment' joke.id comment.id %}">Edit</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>

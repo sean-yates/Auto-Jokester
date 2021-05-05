@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # import requests
 import datetime
@@ -238,3 +239,15 @@ def add_comment(request, joke_id):
         new_comment.joke_id = joke_id
         new_comment.save()
     return redirect('joke_details', joke_id=joke_id)
+
+
+@login_required
+def delete_comment(request, joke_id, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    if comment.user == request.user:
+        comment.delete()
+    return redirect('joke_details',joke_id=joke_id)
+
+class Update_comment(LoginRequiredMixin, UpdateView):
+    model = Comment
+    fields = ['text']
