@@ -18,6 +18,9 @@
       <span class="card-title">
         {{comment.user}}: {{comment.text}}
       </span>
+      <div class="card-action">
+        <a href="{% url 'delete_comment' joke.id comment.id %}">Delete</a>
+      </div>
     </div>
   </div>
 </div>

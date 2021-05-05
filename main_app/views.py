@@ -238,3 +238,8 @@ def add_comment(request, joke_id):
         new_comment.joke_id = joke_id
         new_comment.save()
     return redirect('joke_details', joke_id=joke_id)
+
+
+@login_required
+def delete_comment(request, joke_id, comment_id):
+    return redirect('joke_details',joke_id=joke_id)
