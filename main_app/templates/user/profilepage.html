@@ -24,20 +24,20 @@
         
             {% if user.profile.facebook_url %}
             <i class="fa fa-facebook-official" style="font-size:48px;color:blue"></i>
-            <p><a href="{{ user.profile.facebook_url }}">Facebook</a></p>
+            <p><a href="{{ user.profile.facebook_url }}" target="_blank">Facebook</a></p>
             {% endif %}
             {% if user.profile.twitter_url %}
             <i class="fa fa-twitter" style="font-size:48px;color:skyblue"></i>
-            <p><a href="{{ user.profile.twitter_url }}">Twitter</a></p>
+            <p><a href="{{ user.profile.twitter_url }}" target="_blank">Twitter</a></p>
             {% endif %}
             {% if user.profile.instagram_url %}
             <i class="fa fa-instagram" style="font-size:48px;color:red"></i>
-            <p><a href="{{ user.profile.instagram_url }}">Instagram</a></p>
+            <p><a href="{{ user.profile.instagram_url }}" target="_blank">Instagram</a></p>
             {% endif %}
             
             {% if user.profile.website_url %}
             <i class="fa fa-user" style="font-size:48px;color:black"></i>
-            <p><a href="{{ user.profile.website_url }}">My Website</a></p>
+            <p><a href="{{ user.profile.website_url }}" target="_blank">My Website</a></p>
 
             {% endif %}
           
