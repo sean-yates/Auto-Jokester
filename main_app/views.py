@@ -67,7 +67,7 @@ def editprofile(request):
             print(p_form)
             return redirect('/profile/')
     else:
-        p_form = ProfileForm(instance=request.user, initial={'bio' : request.user.profile.bio, 'facebook_url': request.user.profile.facebook_url, 'twitter_url': request.user.profile.twitter_url,'instagram_url': request.user.profile.instagram_url, 'website_url': request.user.profile.website_url })
+        p_form = ProfileForm(instance=request.user, initial={'bio' : request.user.profile.bio, 'facebook_url': request.user.profile.facebook_url, 'twitter_url': request.user.profile.twitter_url,'instagram_url': request.user.profile.instagram_url, 'website_url': request.user.profile.website_url})
         u_form = UserUpdateForm(instance=request.user.profile, initial={'username' : request.user})
 
     context={'p_form': p_form, 'u_form': u_form}
