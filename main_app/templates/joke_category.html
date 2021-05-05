@@ -6,6 +6,10 @@
 {% for joke in all %}
 <div class="container">
   <p>{{ joke }}</p>
-  <button>Dislike</button><button>Like</button>
+  <form action="{% url 'assoc_favorite' joke.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn">Favorite</button>
+  </form>
+  <hr />
 </div>
 {% endfor %} {% endblock %}

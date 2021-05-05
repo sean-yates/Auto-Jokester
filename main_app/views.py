@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # import requests
 import datetime
@@ -61,7 +62,15 @@ def myfavoritejokes(request):
     # path('<str:category>_joke_by_id/', views.joke_by_id, name='joke_by_id'),
     # path('<str:category>_joke_search/', views.joke_search, name='joke_search'),
 
+@login_required
+def assoc_favorite(request, joke_id):
+    Joke.objects.get(id=joke_id).favorites.add(request.user.id)
+    return redirect('allJokes')
+
 def joke_category(request, category):
+
+    user = User.objects.get(id=request.user.id)
+
     if category == 'dad':
         category_code = 'D'
     elif category == 'yomama':
@@ -84,7 +93,10 @@ def joke_category(request, category):
         category_code = 'A'
 
     db_jokes = Joke.objects.filter(category = category_code)
-    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category})
+
+    jokes_without_action = Joke.objects.exclude(id__in = user.favorites.all().values_list('id'))
+
+    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category, 'jokes_without_action': jokes_without_action})
 
 def joke_random(request, category_name):
     import requests

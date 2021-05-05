@@ -1,11 +1,26 @@
 {% extends 'base.html' %} {% block content %}
-   <body>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<body>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
 
-        <div class="container">
-            <h1>These are my favorite jokes</h1>
-        </div>
-    </body>
+  <div class="container">
+    <h1>These are my favorite jokes</h1>
+  </div>
+
+  <div>
+  {% if user.favorites.count %}
+  {% for favorite in user.favorites.all %}
+  {{joke.favorite}}
+  {% endfor %}
+  {% else %}
+  <h5>No Favorite Jokes Yet </h5>
+  {% endif %}
+</body>
 
 {% endblock %}
