@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # import requests
 import datetime
@@ -40,12 +42,15 @@ def allJokes(request):
 
     return render(request, 'allJokes.html', context)
 
+@login_required
 def submitjoke(request):
     return render(request, 'submitjoke.html')
 
+@login_required
 def postsubmit(request):
     return render(request, 'postsubmit.html')
 
+@login_required
 def profilePage(request):
     return render(request, 'user/profilepage.html')
 
@@ -67,7 +72,7 @@ def editprofile(request):
     return render(request, 'user/editprofile.html',context )
 
 
-
+@login_required
 def myfavoritejokes(request):
     return render(request, 'user/myfavoritejokes.html')
 
@@ -246,6 +251,7 @@ def joke_details(request, joke_id):
     }
     return render(request, 'comments.html', context)
 
+@login_required
 def add_comment(request, joke_id):
     form = CommentForm(request.POST)
     if form.is_valid():
@@ -254,3 +260,15 @@ def add_comment(request, joke_id):
         new_comment.joke_id = joke_id
         new_comment.save()
     return redirect('joke_details', joke_id=joke_id)
+
+
+@login_required
+def delete_comment(request, joke_id, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    if comment.user == request.user:
+        comment.delete()
+    return redirect('joke_details',joke_id=joke_id)
+
+class Update_comment(LoginRequiredMixin, UpdateView):
+    model = Comment
+    fields = ['text']
