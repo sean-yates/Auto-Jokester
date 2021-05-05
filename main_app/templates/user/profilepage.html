@@ -2,6 +2,8 @@
   <body>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <div class="container">
 
       {% if user.is_authenticated %}
@@ -19,17 +21,23 @@
             {% if user.profile.bio %}
             <p>{{user.profile.bio}}</p>
             {% endif %}
+        
             {% if user.profile.facebook_url %}
-            <p>{{user.profile.facebook_url}}</p>
+            <i class="fa fa-facebook-official" style="font-size:48px;color:blue"></i>
+            <p><a href="{{ user.profile.facebook_url }}">Facebook</a></p>
             {% endif %}
             {% if user.profile.twitter_url %}
-            <p>{{user.profile.twitter_url}}</p>
+            <i class="fa fa-twitter" style="font-size:48px;color:skyblue"></i>
+            <p><a href="{{ user.profile.twitter_url }}">Twitter</a></p>
             {% endif %}
             {% if user.profile.instagram_url %}
-            <p>{{user.profile.instagram_url}}</p>
+            <i class="fa fa-instagram" style="font-size:48px;color:red"></i>
+            <p><a href="{{ user.profile.instagram_url }}">Instagram</a></p>
             {% endif %}
-            {% if user.profile.twitter_url %}
-            <p>{{user.profile.twitter_url}}</p>
+            
+            {% if user.profile.website_url %}
+            <i class="fa fa-user" style="font-size:48px;color:black"></i>
+            <p><a href="{{ user.profile.website_url }}">My Website</a></p>
 
             {% endif %}
           
@@ -37,8 +45,9 @@
               {% else %}
                     <p>Welcome, new user. Please log in.</p>
                     {% endif %}
-            <p>View all submitted jokes</p>
+          
           <p><a href="{% url 'myfavoritejokes' %}">My Favorite Jokes</a></p>
+          <p>View all submitted jokes</p>
 
 
         </div>
