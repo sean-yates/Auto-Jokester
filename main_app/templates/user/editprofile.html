@@ -5,13 +5,15 @@
 
         <div class="container">
             <p>THIS IS WHERE IM GONNA EDIT THE PROFILE</P>
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{u_form}}
-            {{p_form}}
-        
+            {{u_form.as_p}}
+            {{p_form.as_p}}
+            
             <input type="submit">
+            <button href="{% url 'profilepage' %}">Cancel</button>
             </form>
+            
         </div>
     </body>
 
