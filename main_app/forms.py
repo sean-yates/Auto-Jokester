@@ -23,7 +23,12 @@ class ProfileForm(ModelForm):
   class Meta:
     model = Profile
     fields = [
-      'bio'
+      'bio',
+      'profile_pic',
+      'website_url',
+      'facebook_url',
+      'twitter_url', 
+      'instagram_url'
     ]
 
 

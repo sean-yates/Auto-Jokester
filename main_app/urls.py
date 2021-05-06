@@ -18,6 +18,10 @@ urlpatterns = [
     path('jokes/<int:joke_id>/add_comment/', views.add_comment, name='add_comment'),
     path('jokes/<int:joke_id>/comments/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
     path('jokes/<int:joke_id>/comments/<int:pk>/update/', views.Update_comment.as_view(), name='update_comment'),
+    
+    path('jokes/<int:pk>/update/', views.Update_joke.as_view(), name='update_joke'),
+    path('jokes/<int:joke_id>/delete/', views.delete_joke, name='delete_joke'),
+
     path('<str:category>/', views.joke_category, name='joke_category'),
     path('editprofile', views.editprofile, name='editprofile'),
 
