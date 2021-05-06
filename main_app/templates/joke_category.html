@@ -23,10 +23,10 @@
   <hr />
   {% endif %}
   
-     {% if joke.createdBy_id == request.user.id and request.user.id != None %}
+    {% if joke.createdBy_id == request.user.id and request.user.id != None %}
       <div class="card-action">
         <a href="{% url 'update_joke' joke.id %}">Edit</a>
-        <a href="#">Delete</a>
+        <a href="{% url 'delete_joke' joke.id %}">Delete</a>
       </div> <!--***END*** <div class="card-action"> -->
     {% endif %}
 

@@ -282,6 +282,10 @@ def delete_joke(request, joke_id):
     }
     return render(request, 'edit_joke.html', context)
 
+class JokeDelete(DeleteView):
+    model = Joke
+    success_url = '/jokes/'
+
 @login_required
 def add_comment(request, joke_id):
     form = CommentForm(request.POST)
