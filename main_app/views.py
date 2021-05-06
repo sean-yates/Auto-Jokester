@@ -83,8 +83,11 @@ def joke_category(request, category):
         category_code = 'S'
     elif category == 'animal':
         category_code = 'A'
+    else:
+        category_code = 'Y'
 
-    db_jokes = Joke.objects.filter(category = category_code)
+    db_jokes = Joke.objects.filter(category = category_code).order_by('id').values()
+    # print('!!!!!!!!!!!!!request.user.id = ', request.user.id)
     return render(request, 'joke_category.html', {'all': db_jokes, 'category': category})
 
 def joke_random(request, category_name):
@@ -230,6 +233,26 @@ def joke_details(request, joke_id):
     }
     return render(request, 'comments.html', context)
 
+# @login_required
+# def edit_joke(request, joke_id):
+#     joke = Joke.objects.get(id=joke_id)
+#     joke_form = JokeForm()
+#     context = {
+#         'joke': joke,
+#         'joke_form': joke_form
+#     }
+#     return render(request, 'edit_joke.html', context)
+
+@login_required
+def delete_joke(request, joke_id):
+    joke = Joke.objects.get(id=joke_id)
+    joke_form = JokeForm()
+    context = {
+        'joke': joke,
+        'joke_form': joke_form
+    }
+    return render(request, 'edit_joke.html', context)
+
 @login_required
 def add_comment(request, joke_id):
     form = CommentForm(request.POST)
@@ -251,3 +274,7 @@ def delete_comment(request, joke_id, comment_id):
 class Update_comment(LoginRequiredMixin, UpdateView):
     model = Comment
     fields = ['text']
+
+class Update_joke(LoginRequiredMixin, UpdateView):
+    model = Joke
+    fields = ['joke', 'source']

@@ -4,7 +4,19 @@
 <h1>{{ category }} jokes</h1>
 
 {% for joke in all %}
-<div class="container">
-  <p>{{ joke }}</p>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">
+      <p>{{ forloop.counter }}) {{ joke.joke }}</p>
+    </span>
+    
+    {% if joke.createdBy_id == request.user.id and request.user.id != None %}
+      <div class="card-action">
+        <a href="{% url 'update_joke' joke.id %}">Edit</a>
+        <a href="#">Delete</a>
+      </div> <!--***END*** <div class="card-action"> -->
+    {% endif %}
+    </div>
 </div>
-{% endfor %} {% endblock %}
+{% endfor %}
+{% endblock %}
