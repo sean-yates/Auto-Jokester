@@ -70,6 +70,10 @@ class Profile(models.Model):
     facebook_url = models.TextField(max_length=255, blank=True, null=True)
     twitter_url = models.TextField(max_length=255, blank=True, null=True)
     instagram_url = models.TextField(max_length=255, blank=True, null=True)
+    moderator = models.BooleanField(default=False)
+    def __str__(self):
+        return f'{self.user.username}'
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

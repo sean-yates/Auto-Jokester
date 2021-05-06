@@ -295,7 +295,11 @@ class Update_comment(LoginRequiredMixin, UpdateView):
 
 @login_required
 def unapproved_jokes(request):
-    jokes_for_review = Joke.objects.filter(approved=False, reviewed=False)
+    print(request.user.profile.moderator)
+    if request.user.profile.moderator:
+        jokes_for_review = Joke.objects.filter(approved=False, reviewed=False)
+    else:
+        jokes_for_review = []
     context = {
         'jokes': jokes_for_review
     }
