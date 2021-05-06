@@ -22,7 +22,7 @@ CATEGORIES = (
 class Joke(models.Model):
     joke = models.CharField(max_length=10000) # what is the max length from the apis?
     
-    source = models.CharField(max_length=50, blank=True, null=True,)
+    source = models.CharField(max_length=1000, blank=True, null=True,)
 
     favorites = models.ManyToManyField(User, blank=True, related_name = 'favorites')
     

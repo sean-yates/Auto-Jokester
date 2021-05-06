@@ -18,7 +18,6 @@ from .forms import JokeForm, CommentForm, ProfileForm, UserUpdateForm
 def home(request):
     db_jokes = Joke.objects.all()
     random_joke = db_jokes[(random.randint(0,(len(db_jokes)) - 1 ))]
-    print(random_joke)
     return render(request, 'home.html', {'random_joke': random_joke})
 
 
@@ -35,7 +34,6 @@ def allJokes(request):
             }
         joke_list.append(category_joke)
 
-    # print('\033[30;206;48;2;255;255;0m', 'jokes =', jokes, '\033[0m')
     context = {
         'categories': categories,
         'jokes': joke_list,
@@ -64,7 +62,6 @@ def editprofile(request):
         if p_form.is_valid() and u_form.is_valid():
             p_form.save()
             u_form.save()
-            print(p_form)
             return redirect('/profile/')
     else:
         p_form = ProfileForm(instance=request.user, initial={'bio' : request.user.profile.bio, 'facebook_url': request.user.profile.facebook_url, 'twitter_url': request.user.profile.twitter_url,'instagram_url': request.user.profile.instagram_url, 'website_url': request.user.profile.website_url})
@@ -130,7 +127,6 @@ def joke_category(request, category):
         category_code = 'Y'
 
     db_jokes = Joke.objects.filter(category = category_code, approved=True).order_by('id').values()
-    # print('!!!!!!!!!!!!!request.user.id = ', request.user.id)
 
     jokes_without_action = Joke.objects.exclude(id__in = user.favorites.all().values_list('id'))
 
@@ -173,21 +169,21 @@ def joke_random(request, category_name):
     else:
         print("\033[30;206;48;2;255;255;0mI don't know how you ended up here.\033[0m")
 
+
     response = requests.request("GET", url, headers=headers)
+
 
     context = { 'response': response }
 
     response_data = response.json()
 
-
-    if category_name == 'dad' or category_name == 'yomama':
-        pass
-        print('\033[30;206;48;2;255;255;0m', 'response_data["joke"] =', response_data['joke'], '\033[0m')
-    elif category_name == 'chucknorris':
-        pass
-        print('\033[30;206;48;2;255;255;0m', 'response_data["value"]["joke"] =', response_data['value']['joke'], '\033[0m')
-
-    save_joke_to_db(response_data['joke'], url, arg_cat)
+    if category_name == 'chucknorris':
+        save_joke_to_db(response_data['value']['joke'], url, arg_cat)
+    elif category_name == 'pun' or category_name == 'computer' and response_data['type'] == 'twopart':
+        combinedJoke = response_data['setup'] + response_data['delivery']
+        save_joke_to_db(combinedJoke, url, arg_cat)
+    else:    
+        save_joke_to_db(response_data['joke'], url, arg_cat)
 
     return render(request, 'joke_random.html', context)
 
@@ -202,8 +198,6 @@ def random_dad_joke(request):
     context = { 'response': response }
 
     response_data = response.json()
-
-    print('\033[30;206;48;2;255;255;0m', response_data['joke'], '\033[0m')
 
     save_joke_to_db(response_data['joke'])
 
@@ -221,15 +215,12 @@ def searchJoke(request):
 
     response_data = response.json()
 
-    print('\033[30;206;48;2;255;255;0m', response_data['results'][0], '\033[0m')
-    
     save_joke_to_db(response_data['results'][0]['joke'])
 
     return render(request, 'joke_search.html', context)
 
 def save_joke_to_db(incoming_joke, source, category):
     existing_joke = Joke.objects.filter(joke__contains=incoming_joke)
-    print('\033[30;206;48;2;255;0;0m', len(existing_joke))
     if len(existing_joke) == 0:
         newJoke = {
             'joke':incoming_joke, 
@@ -237,7 +228,6 @@ def save_joke_to_db(incoming_joke, source, category):
             'category':category,
             'createdBy':None,
             }
-
         form = JokeForm(newJoke)
         if form.is_valid():
             new_joke = form.save(commit=False)
@@ -322,7 +312,6 @@ class Update_joke(LoginRequiredMixin, UpdateView):
 
 @login_required
 def unapproved_jokes(request):
-    print(request.user.profile.moderator)
     if request.user.profile.moderator:
         jokes_for_review = Joke.objects.filter(approved=False, reviewed=False)
     else:
