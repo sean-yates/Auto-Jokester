@@ -44,6 +44,18 @@
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
             {% endif %}
           </ul>
+          {% if user.is_authenticated %}
+          <form action="{% url 'search' %}" method="POST" class="d-flex">
+            {% csrf_token %}
+            <input
+              type="search"
+              name="query"
+              placeholder="Search Jokes..."
+              class="form-control me-2"
+            />
+            <button type="submit" class="btn">Search</button>
+          </form>
+          {% endif %}
         </div>
       </nav>
     </header>

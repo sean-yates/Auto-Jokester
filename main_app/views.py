@@ -91,6 +91,16 @@ def assoc_dislike(request, joke_id):
     Joke.objects.get(id=joke_id).dislikes.add(request.user.id)
     return redirect('allJokes')
 
+
+@login_required
+def search(request):
+    if request.method == 'POST':
+        query = request.POST.get('query')
+        jokes = Joke.objects.filter(joke__contains=query)
+        return render(request, 'search.html', {'query': query, 'jokes': jokes})
+    else:
+        return render(request, 'search.html')
+
 def joke_category(request, category):
 
     user = User.objects.get(id=request.user.id)
