@@ -231,6 +231,7 @@ def save_joke_to_db(incoming_joke, source, category):
         form = JokeForm(newJoke)
         if form.is_valid():
             new_joke = form.save(commit=False)
+            new_joke.approved = True
             new_joke.save()
     else:
         print('Joke already exists.')
