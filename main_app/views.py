@@ -1,15 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # import requests
 import datetime
 import random
-from .models import Joke, CATEGORIES, Comment
-from .forms import JokeForm, CommentForm
+from .models import Joke, CATEGORIES, Comment, Profile
+from .forms import JokeForm, CommentForm, ProfileForm, UserUpdateForm
 
 # API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 
@@ -54,6 +55,25 @@ def postsubmit(request):
 def profilePage(request):
     return render(request, 'user/profilepage.html')
 
+
+def editprofile(request):
+    u_form = UserUpdateForm(request.GET, initial={'value' : 'Peter'})
+    if request.method == 'POST':
+        p_form = ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        u_form = UserUpdateForm(request.POST,instance=request.user)
+        if p_form.is_valid() and u_form.is_valid():
+            p_form.save()
+            u_form.save()
+            print(p_form)
+            return redirect('/profile/')
+    else:
+        p_form = ProfileForm(instance=request.user, initial={'bio' : request.user.profile.bio, 'facebook_url': request.user.profile.facebook_url, 'twitter_url': request.user.profile.twitter_url,'instagram_url': request.user.profile.instagram_url, 'website_url': request.user.profile.website_url})
+        u_form = UserUpdateForm(instance=request.user.profile, initial={'username' : request.user})
+
+    context={'p_form': p_form, 'u_form': u_form}
+    return render(request, 'user/editprofile.html',context )
+
+
 @login_required
 def myfavoritejokes(request):
     return render(request, 'user/myfavoritejokes.html')
@@ -62,7 +82,20 @@ def myfavoritejokes(request):
     # path('<str:category>_joke_by_id/', views.joke_by_id, name='joke_by_id'),
     # path('<str:category>_joke_search/', views.joke_search, name='joke_search'),
 
+@login_required
+def assoc_favorite(request, joke_id):
+    Joke.objects.get(id=joke_id).favorites.add(request.user.id)
+    return redirect('allJokes')
+
+@login_required
+def assoc_dislike(request, joke_id):
+    Joke.objects.get(id=joke_id).dislikes.add(request.user.id)
+    return redirect('allJokes')
+
 def joke_category(request, category):
+
+    user = User.objects.get(id=request.user.id)
+
     if category == 'dad':
         category_code = 'D'
     elif category == 'yomama':
@@ -88,7 +121,11 @@ def joke_category(request, category):
 
     db_jokes = Joke.objects.filter(category = category_code).order_by('id').values()
     # print('!!!!!!!!!!!!!request.user.id = ', request.user.id)
-    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category})
+
+    jokes_without_action = Joke.objects.exclude(id__in = user.favorites.all().values_list('id'))
+
+    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category, 'jokes_without_action': jokes_without_action})
+   
 
 def joke_random(request, category_name):
     import requests
@@ -275,6 +312,37 @@ class Update_comment(LoginRequiredMixin, UpdateView):
     model = Comment
     fields = ['text']
 
+
 class Update_joke(LoginRequiredMixin, UpdateView):
     model = Joke
     fields = ['joke', 'source']
+
+
+@login_required
+def unapproved_jokes(request):
+    print(request.user.profile.moderator)
+    if request.user.profile.moderator:
+        jokes_for_review = Joke.objects.filter(approved=False, reviewed=False)
+    else:
+        jokes_for_review = []
+    context = {
+        'jokes': jokes_for_review
+    }
+    
+    return render(request, 'unapproved_jokes.html', context)
+
+@login_required
+def approve_joke(request,joke_id):
+    joke = Joke.objects.get(id=joke_id)
+    joke.reviewed = True
+    joke.approved = True
+    joke.save()
+    return redirect('unapproved_jokes')
+
+@login_required
+def reject_joke(request,joke_id):
+    joke = Joke.objects.get(id=joke_id)
+    joke.reviewed = True
+    joke.save()
+    return redirect('unapproved_jokes')
+
