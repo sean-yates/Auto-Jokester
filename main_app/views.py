@@ -28,7 +28,7 @@ def allJokes(request):
 
     joke_list = []
     for category in categories:
-        joke_in_category = Joke.objects.filter(category=category[0]).order_by("?").first()
+        joke_in_category = Joke.objects.filter(category=category[0], approved=True).order_by("?").first()
         category_joke = {
             'category': category,
             'joke': joke_in_category,
@@ -119,7 +119,7 @@ def joke_category(request, category):
     else:
         category_code = 'Y'
 
-    db_jokes = Joke.objects.filter(category = category_code).order_by('id').values()
+    db_jokes = Joke.objects.filter(category = category_code, approved=True).order_by('id').values()
     # print('!!!!!!!!!!!!!request.user.id = ', request.user.id)
 
     jokes_without_action = Joke.objects.exclude(id__in = user.favorites.all().values_list('id'))
@@ -270,15 +270,6 @@ def joke_details(request, joke_id):
     }
     return render(request, 'comments.html', context)
 
-# @login_required
-# def edit_joke(request, joke_id):
-#     joke = Joke.objects.get(id=joke_id)
-#     joke_form = JokeForm()
-#     context = {
-#         'joke': joke,
-#         'joke_form': joke_form
-#     }
-#     return render(request, 'edit_joke.html', context)
 
 @login_required
 def delete_joke(request, joke_id):
