@@ -12,6 +12,7 @@ import random
 from .models import Joke, CATEGORIES, Comment, Profile
 from .forms import JokeForm, CommentForm, ProfileForm, UserUpdateForm
 
+
 # API_KEY = '4967ac58d9msh8e3af7a90bbc99dp19e443jsnc0ddfc3ec16a'
 
 # Create your views here.
@@ -43,13 +44,63 @@ def allJokes(request):
 
     return render(request, 'allJokes.html', context)
 
-@login_required
+
+
 def submitjoke(request):
-    return render(request, 'submitjoke.html')
+    j_form = JokeForm(request.GET)
+    if request.method == "POST":
+        j_form = JokeForm(request.POST)
+        if j_form.is_valid():
+            new_joke = j_form.save(commit = False)
+            new_joke.createdBy = request.user
+            new_joke.save()
+        return redirect('/submitjoke/postsubmit')
+    else:
+        j_form = JokeForm()
+
+    context={'j_form': j_form}
+    return render(request, 'submitjoke.html',context )
 
 @login_required
 def postsubmit(request):
     return render(request, 'postsubmit.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @login_required
 def profilePage(request):
@@ -65,7 +116,7 @@ def editprofile(request):
             p_form.save()
             u_form.save()
             print(p_form)
-            return redirect('/profile/')
+            return redirect('/jokes/profile/')
     else:
         p_form = ProfileForm(instance=request.user, initial={'bio' : request.user.profile.bio, 'facebook_url': request.user.profile.facebook_url, 'twitter_url': request.user.profile.twitter_url,'instagram_url': request.user.profile.instagram_url, 'website_url': request.user.profile.website_url})
         u_form = UserUpdateForm(instance=request.user.profile, initial={'username' : request.user})

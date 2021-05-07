@@ -4,6 +4,7 @@ from datetime import date
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
 # Create your models here.
 
 CATEGORIES = (
@@ -39,6 +40,8 @@ class Joke(models.Model):
     approved = models.BooleanField(default=False)
 
     reviewed = models.BooleanField(default=False)
+
+
 
 
     def __str__(self):
