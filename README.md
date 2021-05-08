@@ -26,6 +26,7 @@ As a user...
 **Wireframes**
 
 **ERD**
+![ERD](./StaticFiles/ReadmeImages/erd.png)
 
 **APIs Used**
 https://icanhazdadjoke.com
