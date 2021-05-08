@@ -363,6 +363,11 @@ class Update_comment(LoginRequiredMixin, UpdateView):
 class Update_joke(LoginRequiredMixin, UpdateView):
     model = Joke
     fields = ['joke', 'source']
+    def form_valid(self, form):  # hijacks the UpdateView method
+        self.object.approved = False # makes sure a joke is unapproved when you update it
+        self.object.reviewed = False # also make sure it is unreviewed
+        self.object = form.save()
+        return super().form_valid(form)
 
 
 @login_required
