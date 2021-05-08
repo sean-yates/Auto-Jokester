@@ -24,6 +24,7 @@ As a user...
 * I want to be able to log out 
 
 **Wireframes**
+
 ![All Jokes](./StaticFiles/ReadmeImages/alljokes.png)
 ![Home Page (not logged in)](./StaticFiles/ReadmeImages/homeloggedout.png)
 ![Home Page (logged in)](./StaticFiles/ReadmeImages/homeloggedin.png)
@@ -34,13 +35,14 @@ As a user...
 
 
 **ERD**
+
 ![ERD](./StaticFiles/ReadmeImages/erd.png)
 
 **APIs Used**
-https://icanhazdadjoke.com
-https://api.yomomma.info
-http://api.icndb.com/jokes/random
-https://v2.jokeapi.dev/
+* https://icanhazdadjoke.com
+* https://api.yomomma.info
+* http://api.icndb.com/jokes/random
+* https://v2.jokeapi.dev/
 
 **Technologies Used**
 
