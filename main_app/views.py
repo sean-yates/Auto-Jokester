@@ -97,7 +97,7 @@ def editprofile(request):
         if p_form.is_valid() and u_form.is_valid():
             p_form.save()
             u_form.save()
-            return redirect('/jokes/profile/')
+            return redirect('profile/')
     else:
         p_form = ProfileForm(instance=request.user, initial={'bio' : request.user.profile.bio, 'facebook_url': request.user.profile.facebook_url, 'twitter_url': request.user.profile.twitter_url,'instagram_url': request.user.profile.instagram_url, 'website_url': request.user.profile.website_url})
         u_form = UserUpdateForm(instance=request.user.profile, initial={'username' : request.user})
