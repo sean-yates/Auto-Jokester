@@ -24,6 +24,7 @@ As a user...
 * I want to be able to log out 
 
 **Wireframes**
+![Wireframes](./StaticFiles/ReadmeImages/Auto-Jokestre.pdf)
 
 **ERD**
 ![ERD](./StaticFiles/ReadmeImages/erd.png)
