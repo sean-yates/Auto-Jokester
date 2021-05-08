@@ -17,6 +17,11 @@
       href="{% static 'css/style.css' %}"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="https://i.imgur.com/80uJj65.png"
+    />
   </head>
   <body>
     <script src="static/js/secret.js"></script>
@@ -31,20 +36,19 @@
           <ul class="right">
             {% comment %} Put below code back before deployment {% endcomment %}
             {# {% if user.is_authenticated %} #}
-              <li><a href="{% url 'allJokes' %}">All Jokes</a></li>
-              <li><a href="{% url 'submitjoke' %}">Submit a Joke</a></li>
-              <li><a href="{% url 'myfavoritejokes' %}">My Favorite Jokes</a></li>
-              <li><a href="{% url 'profilepage' %}">My Profile</a></li>
+            <li><a href="{% url 'allJokes' %}">All Jokes</a></li>
+            <li><a href="{% url 'submitjoke' %}">Submit a Joke</a></li>
+            <li><a href="{% url 'myfavoritejokes' %}">My Favorite Jokes</a></li>
+            <li><a href="{% url 'profilepage' %}">My Profile</a></li>
             {% comment %} Erase below code and replace with above before
             deploying {% endcomment %} {% if user.is_authenticated %}
 
             <li><a href="{% url 'logout' %}">Log Out</a></li>
             {% else %}
-              <li><a href="{% url 'login' %}">Log In</a></li>
-              <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            {% endif %}
-            {% if user.profile.moderator %}
-              <li><a href="{% url 'unapproved_jokes' %}">Jokes to Review</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            {% endif %} {% if user.profile.moderator %}
+            <li><a href="{% url 'unapproved_jokes' %}">Jokes to Review</a></li>
             {% endif %}
           </ul>
           {% if user.is_authenticated %}
