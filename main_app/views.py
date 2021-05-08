@@ -177,11 +177,11 @@ def joke_category(request, category):
     else:
         category_code = 'Y'
 
-    db_jokes = Joke.objects.filter(category = category_code, approved=True).order_by('id').values()
+    db_jokes = Joke.objects.filter(category = category_code, approved=True).exclude(id__in = user.favorites.all().values_list('id')).exclude(id__in = user.dislikes.all().values_list('id')).order_by('id').values()
 
-    jokes_without_action = Joke.objects.exclude(id__in = user.favorites.all().values_list('id'))
+    # jokes_without_action = Joke.objects.exclude(id__in = user.favorites.all().values_list('id'))
 
-    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category, 'jokes_without_action': jokes_without_action})
+    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category})
    
 
 def joke_random(request, category_name):
