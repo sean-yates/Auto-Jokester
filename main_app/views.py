@@ -63,6 +63,9 @@ def submitjoke(request):
 def postsubmit(request):
     return render(request, 'postsubmit.html')
 
+def about_us(request):
+    return render(request, 'about_us.html')
+
 
 
 

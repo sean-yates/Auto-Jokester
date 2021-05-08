@@ -64,7 +64,8 @@
     </header>
     <main class="container">{% block content %} {% endblock %}</main>
     <footer class="page-footer brown lighten-1 z-depth-1">
-      <div class="right">
+      <a class="left" href="{% url 'about_us' %}" style="color: black">About Us</a>
+      <div class="right" style="color: black">
         All Rights Reserved, &copy; {% now "Y" %} AutoJokester &nbsp;
       </div>
     </footer>
