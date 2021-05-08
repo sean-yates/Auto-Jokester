@@ -8,16 +8,16 @@ from django.dispatch import receiver
 # Create your models here.
 
 CATEGORIES = (
-    # ('R', 'Random'),
+    ('R', 'Random'),
     ('Y', 'Yo Mama'),
     ('D', 'Dad'),
     ('H', 'Chuck Norris'),
     ('P', 'Pun'),
-    # ('K', 'Knock Knock'),
-    # ('B', 'Bar'),
+    ('K', 'Knock Knock'),
+    ('B', 'Bar'),
     ('C', 'Computer'),
-    # ('S', 'Sports'),
-    # ('A', 'Animal'),
+    ('S', 'Sports'),
+    ('A', 'Animal'),
 )
 
 class Joke(models.Model):

@@ -26,10 +26,18 @@ def allJokes(request):
     # jokes = Joke.objects.order_by('id')
     categories = CATEGORIES
 
+    categoriesWithApis =  (
+    ('Y', 'Yo Mama'),
+    ('D', 'Dad'),
+    ('H', 'Chuck Norris'),
+    ('P', 'Pun'),
+    ('C', 'Computer')
+)
+
     joke_list = []
     for category in categories:
         joke_in_category = Joke.objects.filter(category=category[0], approved=True).order_by("?").first()
-      
+
         category_joke = {
             'category': category,
             'joke': joke_in_category,
@@ -40,7 +48,7 @@ def allJokes(request):
     context = {
         'categories': categories,
         'jokes': joke_list,
-   
+        'categoriesWithApis': categoriesWithApis
         }
 
     return render(request, 'allJokes.html', context)
