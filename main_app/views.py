@@ -65,48 +65,16 @@ def submitjoke(request):
 def postsubmit(request):
     return render(request, 'postsubmit.html')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@login_required
+def submittedjokes(request):
+    return render(request, 'user/submittedjokes.html')
 
 
 @login_required
 def profilePage(request):
     return render(request, 'user/profilepage.html')
 
-
+@login_required
 def editprofile(request):
     u_form = UserUpdateForm(request.GET, initial={'value' : 'Peter'})
     if request.method == 'POST':

@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+
+
+<h1>This is where I look at all the jokes I've submitted</h1>
+
+
+
+  <div>
+  {% if user.createdBy.jokes %}
+  <ul>
+  {% for joke in user.jokes.all %}
+  <li><h1>{{joke}}</h1></li>
+  {% endfor %}
+  </ul>
+  {% else %}
+  <h5>No Favorite Jokes Yet </h5>
+  {% endif %}
+</body>
+
+
+
+{% endblock %} 
