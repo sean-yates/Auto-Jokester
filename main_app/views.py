@@ -75,6 +75,44 @@ def submitjoke(request):
 def postsubmit(request):
     return render(request, 'postsubmit.html')
 
+def about_us(request):
+    return render(request, 'about_us.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @login_required
 def submittedjokes(request):
     jokes = Joke.objects.filter(createdBy = request.user)
