@@ -2,18 +2,14 @@
 
 {{ user}}
 
-<h1>Formatted joke should go here</h1>
-<p>{{joke.joke}}</p>
+<h1>{{joke.joke}}</h1>
 
-
-<h1>then an add comment form should be here</h1>
 <form action="{% url 'add_comment' joke.id %}" method="post">
   {% csrf_token %}
   {{ comment_form.as_p }}
   <input type="submit" class="btn" value="Add Comment" />
 </form>
 
-<h1>Then comments go here:</h1>
 {% for comment in joke.comment_set.all %}
   <div class="card">
     <div class="card-content">

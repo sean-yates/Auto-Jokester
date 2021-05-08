@@ -1,16 +1,20 @@
 {% extends 'base.html' %} {% block content %}
 <body>
-    {% for joke in jokes %}
-        <div class="container card">
-            <div class="container card-content">
-                <h2>{{joke.joke}}</h2>
-                <div class="card-action">
-                    <a href="{% url 'approve_joke' joke.id %}">Approve</a>
-                    <a href="{% url 'reject_joke' joke.id %}">Reject</a>
+    {% if user.profile.moderator %}
+        {% for joke in jokes %}
+            <div class="container card">
+                <div class="container card-content">
+                    <h2>{{joke.joke}}</h2>
+                    <div class="card-action">
+                        <a href="{% url 'approve_joke' joke.id %}">Approve</a>
+                        <a href="{% url 'reject_joke' joke.id %}">Reject</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <h1>Mods only, contact site admin to see if interested in becoming a mod!</h1>
+    {% endif %}
 </body>
 
 {% endblock %}

@@ -22,6 +22,11 @@ urlpatterns = [
     path('jokes/<int:joke_id>/add_comment/', views.add_comment, name='add_comment'),
     path('jokes/<int:joke_id>/comments/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
     path('jokes/<int:joke_id>/comments/<int:pk>/update/', views.Update_comment.as_view(), name='update_comment'),
+    
+    path('jokes/<int:pk>/update/', views.Update_joke.as_view(), name='update_joke'),
+    # path('jokes/<int:pk>/delete/', views.delete_joke, name='delete_joke'),
+    path('jokes/<int:pk>/delete/', views.JokeDelete.as_view(), name='delete_joke'),
+
     path('<str:category>/', views.joke_category, name='joke_category'),
     path('editprofile', views.editprofile, name='editprofile'),
 
@@ -31,7 +36,8 @@ urlpatterns = [
 
     path('jokes/<int:joke_id>/assoc_favorite/', views.assoc_favorite, name='assoc_favorite'),
     path('jokes/<int:joke_id>/assoc_dislike/', views.assoc_dislike, name='assoc_dislike'),
-    path('jokes/editprofile', views.editprofile, name='editprofile'),
-    path('jokes/submittedjokes', views.submittedjokes, name='submittedjokes')
+    path('editprofile', views.editprofile, name='editprofile'),
 
+    path('search', views.search, name='search'),
+ 
 ]
