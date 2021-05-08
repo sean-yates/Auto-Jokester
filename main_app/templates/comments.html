@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %}
+
+{{ user}}
+
+<h1>{{joke.joke}}</h1>
+
+<form action="{% url 'add_comment' joke.id %}" method="post">
+  {% csrf_token %}
+  {{ comment_form.as_p }}
+  <input type="submit" class="btn" value="Add Comment" />
+</form>
+
+{% for comment in joke.comment_set.all %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">
+        {{comment.user}}: {{comment.text}}
+      </span>
+      {% if user == comment.user  %}
+        <div class="card-action">
+          <a href="{% url 'delete_comment' joke.id comment.id %}">Delete</a>
+          <a href="{% url 'update_comment' joke.id comment.id %}">Edit</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% empty %}
+<h5>Be the first to comment on this joke!</h5>
+
+{% endfor %}
+
+
+{% endblock %}
