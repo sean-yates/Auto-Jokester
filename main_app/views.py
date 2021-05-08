@@ -254,7 +254,6 @@ def joke_random(request, category_name):
     response = requests.request("GET", url, headers=headers)
 
 
-    context = { 'response': response }
 
     response_data = response.json()
 
@@ -265,6 +264,9 @@ def joke_random(request, category_name):
         save_joke_to_db(combinedJoke, url, arg_cat)
     else:    
         save_joke_to_db(response_data['joke'], url, arg_cat)
+    
+
+    context = { 'response': response }
 
     return render(request, 'joke_random.html', context)
 

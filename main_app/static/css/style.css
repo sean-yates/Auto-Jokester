@@ -8,3 +8,50 @@ body {
 #category {
   display: block;
 }
+
+.headerlinks {
+  font-family: "Pompiere";
+  font-size: 140%;
+  color: black;
+}
+
+#autojokester {
+  font-family: "dosis";
+  color: black;
+}
+
+.nav-wrapper {
+  background-color: #f8f1b4;
+}
+
+footer {
+  background-color: #f8f1b4;
+}
+
+#homejoke {
+  font-family: "maitree";
+}
+
+.welcome {
+  font-family: "maitree";
+}
+
+button {
+  background-color: #93b0b4;
+}
+
+.joke-card {
+  font-family: "maitree";
+}
+
+.i {
+  font-family: "pompiere";
+}
+
+.button {
+  font-family: "pompiere";
+}
+
+.faves {
+  font-size: 130%;
+}
