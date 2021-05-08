@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %}
+
+<br />
+<h1>{{ category }} jokes</h1>
+<p>My name is jenn</p>
+
+{% for joke in all %}
+
+
+<div class="container">
+  {% if joke in user.favorites.all %} {% elif joke in user.dislikes.all %}
+  {%else%}
+  <p>{{ joke }}</p>
+  <form action="{% url 'assoc_favorite' joke.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn">Favorite</button>
+  </form>
+  <br />
+  <form action="{% url 'assoc_dislike' joke.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn">Dislike</button>
+  </form>
+  <hr />
+  {% endif %}
+  
+    {% if joke.createdBy_id == request.user.id and request.user.id != None %}
+      <div class="card-action">
+        <a href="{% url 'update_joke' joke.id %}">Edit</a>
+        <a href="{% url 'delete_joke' joke.id %}">Delete</a>
+      </div> <!--***END*** <div class="card-action"> -->
+    {% endif %}
+
+</div>
+{% endfor %}
+{% endblock %}
