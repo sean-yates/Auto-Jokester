@@ -24,7 +24,14 @@ As a user...
 * I want to be able to log out 
 
 **Wireframes**
-![Wireframes](./StaticFiles/ReadmeImages/Auto-Jokestre.pdf)
+![All Jokes](./StaticFiles/ReadmeImages/alljokes.png)
+![Home Page (not logged in)](./StaticFiles/ReadmeImages/homeloggedout.png)
+![Home Page (logged in)](./StaticFiles/ReadmeImages/homeloggedin.png)
+![Category](./StaticFiles/ReadmeImages/category.png)
+![favorites](./StaticFiles/ReadmeImages/favorites.png)
+![profile](./StaticFiles/ReadmeImages/profile.png)
+![about](./StaticFiles/ReadmeImages/about.png)
+
 
 **ERD**
 ![ERD](./StaticFiles/ReadmeImages/erd.png)
