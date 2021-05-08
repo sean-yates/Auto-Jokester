@@ -89,6 +89,14 @@ def profilePage(request):
     return render(request, 'user/profilepage.html')
 
 @login_required
+def anotheruserprofilepage(request, user_id):
+    profile_values = User.objects.get(id=user_id)
+    context = {
+        'profile_values': profile_values,
+    }
+    return render(request, 'anotheruserprofilepage.html', context)
+
+@login_required
 def editprofile(request):
     u_form = UserUpdateForm(request.GET, initial={'value' : 'Peter'})
     if request.method == 'POST':
@@ -97,7 +105,7 @@ def editprofile(request):
         if p_form.is_valid() and u_form.is_valid():
             p_form.save()
             u_form.save()
-            return redirect('/jokes/profile/')
+            return redirect('profile/')
     else:
         p_form = ProfileForm(instance=request.user, initial={'bio' : request.user.profile.bio, 'facebook_url': request.user.profile.facebook_url, 'twitter_url': request.user.profile.twitter_url,'instagram_url': request.user.profile.instagram_url, 'website_url': request.user.profile.website_url})
         u_form = UserUpdateForm(instance=request.user.profile, initial={'username' : request.user})

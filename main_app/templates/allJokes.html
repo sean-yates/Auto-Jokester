@@ -18,6 +18,7 @@
                 
                 {% if joke.joke.createdBy %}
                   <p>Submitted by {{joke.joke.createdBy}} </p>
+                  <li><a href="{% url 'profiles' joke.joke.createdBy.id %}">{{joke.joke.createdBy}}</a></li>
                 {% else %}
                   <p> </p>
                 {% endif %}
