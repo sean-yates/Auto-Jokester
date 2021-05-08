@@ -121,7 +121,7 @@ def assoc_dislike(request, joke_id):
 def search(request):
     if request.method == 'POST':
         query = request.POST.get('query')
-        jokes = Joke.objects.filter(joke__contains=query)
+        jokes = Joke.objects.filter(joke__contains=query, approved=True)
         return render(request, 'search.html', {'query': query, 'jokes': jokes})
     else:
         return render(request, 'search.html')
