@@ -6,10 +6,10 @@ class JokeForm(ModelForm):
     model = Joke
     fields = [
         'joke', 
-        'source', 
         'category', 
-        'createdBy',
+        
         ]
+
 
 
 class CommentForm(ModelForm):
