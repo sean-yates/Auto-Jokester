@@ -29,15 +29,18 @@ def allJokes(request):
     joke_list = []
     for category in categories:
         joke_in_category = Joke.objects.filter(category=category[0], approved=True).order_by("?").first()
+      
         category_joke = {
             'category': category,
             'joke': joke_in_category,
+            
             }
         joke_list.append(category_joke)
 
     context = {
         'categories': categories,
         'jokes': joke_list,
+   
         }
 
     return render(request, 'allJokes.html', context)
@@ -50,6 +53,7 @@ def submitjoke(request):
         j_form = JokeForm(request.POST)
         if j_form.is_valid():
             new_joke = j_form.save(commit = False)
+    
             new_joke.createdBy = request.user
             new_joke.save()
         return redirect('/submitjoke/postsubmit')
@@ -63,48 +67,20 @@ def submitjoke(request):
 def postsubmit(request):
     return render(request, 'postsubmit.html')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@login_required
+def submittedjokes(request):
+    jokes = Joke.objects.filter(createdBy = request.user)
+    context = {
+    "jokes": jokes
+    }
+    return render(request, 'user/submittedjokes.html', context)
 
 
 @login_required
 def profilePage(request):
     return render(request, 'user/profilepage.html')
 
-
+@login_required
 def editprofile(request):
     u_form = UserUpdateForm(request.GET, initial={'value' : 'Peter'})
     if request.method == 'POST':
