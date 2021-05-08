@@ -81,6 +81,14 @@ def profilePage(request):
     return render(request, 'user/profilepage.html')
 
 @login_required
+def anotheruserprofilepage(request, user_id):
+    profile_values = User.objects.get(id=user_id)
+    context = {
+        'profile_values': profile_values,
+    }
+    return render(request, 'anotheruserprofilepage.html', context)
+
+@login_required
 def editprofile(request):
     u_form = UserUpdateForm(request.GET, initial={'value' : 'Peter'})
     if request.method == 'POST':
