@@ -19,8 +19,7 @@ As a user...
 * I want to be able to create/update/delete jokes that I have created
 * I want to be able to explore jokes on the site by category 
 * I want to be able to favorite and unfavorite jokes 
-* I want to be able to view a daily joke and the most trending joke 
-* I want to be able to play the game on the website 
+* I want to be able to view a daily joke 
 * I want to be able to log out 
 
 **Wireframes**
