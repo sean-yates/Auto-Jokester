@@ -23,7 +23,7 @@ CATEGORIES = (
 class Joke(models.Model):
     joke = models.CharField(max_length=10000) # what is the max length from the apis?
     
-    source = models.CharField(max_length=50, blank=True, null=True,)
+    source = models.CharField(max_length=1000, blank=True, null=True,)
 
     favorites = models.ManyToManyField(User, blank=True, related_name = 'favorites')
     
@@ -41,12 +41,11 @@ class Joke(models.Model):
 
     reviewed = models.BooleanField(default=False)
 
-
-
-
     def __str__(self):
         return f'{self.joke}'
 
+    def get_absolute_url(self):
+        return reverse('joke_details', args=[self.id])
 
 class Comment(models.Model):
     text = models.CharField(max_length=4000)
@@ -73,6 +72,10 @@ class Profile(models.Model):
     facebook_url = models.TextField(max_length=255, blank=True, null=True)
     twitter_url = models.TextField(max_length=255, blank=True, null=True)
     instagram_url = models.TextField(max_length=255, blank=True, null=True)
+    moderator = models.BooleanField(default=False)
+    def __str__(self):
+        return f'{self.user.username}'
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

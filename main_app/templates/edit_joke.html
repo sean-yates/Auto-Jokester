@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+
+{{ user}}
+
+<h1>{{joke.joke}}</h1>
+
+<form action="{% url 'update_joke' joke.id %}" method="post">
+  {% csrf_token %}
+  {{ joke_form.as_p }}
+  <input type="submit" class="btn" value="Edit Joke" />
+</form>
+
+{% endblock %}

@@ -1,0 +1,1 @@
+web: gunicorn autojokester_project.wsgi

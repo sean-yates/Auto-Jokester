@@ -1,0 +1,7 @@
+joke,source,favorites,dislikes,category,createdBy
+,created_at,modified_date,appproved
+yomamajoke1,https://api.yomomma.info,,,YoMama,,
+dadjoke1,https://icanhazdadjoke.com,,,Dad,,
+chucknorrisjoke1,https://www.chucknorris.com,,,ChuckNorris,,
+punjoke1,https://api.punjokes.info,,,Pun,,
+computerjoke1,https://api.computerjokes.info,,,Computer,,
