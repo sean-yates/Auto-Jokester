@@ -1,24 +1,23 @@
 {% extends 'base.html' %} {% block content %}
 
 <br />
-<h1>{{ category }} jokes</h1>
-<p>My name is jenn</p>
+<h1 id="autojokester">{{ category }} jokes</h1>
 
 {% for joke in all %}
 
-<div class="container">
+<div class="container joke-card">
   {% if joke in user.favorites.all or joke in user.dislikes.all%}
   <div />
   {%else%}
   <p>{{ joke.joke }}</p>
   <form action="{% url 'assoc_favorite' joke.id %}" method="post">
     {% csrf_token %}
-    <button type="submit" class="btn">Favorite</button>
+    <button type="submit" class="btn cyan darken-2 button">Favorite</button>
   </form>
   <br />
   <form action="{% url 'assoc_dislike' joke.id %}" method="post">
     {% csrf_token %}
-    <button type="submit" class="btn">Dislike</button>
+    <button type="submit" class="btn cyan darken-2 button">Dislike</button>
   </form>
   <hr />
   {% endif %}
