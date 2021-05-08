@@ -29,15 +29,18 @@ def allJokes(request):
     joke_list = []
     for category in categories:
         joke_in_category = Joke.objects.filter(category=category[0], approved=True).order_by("?").first()
+      
         category_joke = {
             'category': category,
             'joke': joke_in_category,
+            
             }
         joke_list.append(category_joke)
 
     context = {
         'categories': categories,
         'jokes': joke_list,
+   
         }
 
     return render(request, 'allJokes.html', context)
