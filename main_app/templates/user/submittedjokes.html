@@ -6,15 +6,17 @@
 
 
   <div>
-  {% if user.createdBy.jokes %}
-  <ul>
-  {% for joke in user.jokes.all %}
-  <li><h1>{{joke}}</h1></li>
+  {% if jokes %}
+  <li><h1>{% for joke in jokes %}</h1></li>
+  <p> {{joke.joke}} </p>
   {% endfor %}
-  </ul>
-  {% else %}
-  <h5>No Favorite Jokes Yet </h5>
+
+{% else %}
+  <h1>No submitted jokes yet! </h1>
+  <li><a href="{% url 'submitjoke' %}">Submit a joke here</a></li>
+
   {% endif %}
+
 </body>
 
 

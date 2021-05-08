@@ -50,6 +50,7 @@ def submitjoke(request):
         j_form = JokeForm(request.POST)
         if j_form.is_valid():
             new_joke = j_form.save(commit = False)
+    
             new_joke.createdBy = request.user
             new_joke.save()
         return redirect('/submitjoke/postsubmit')
@@ -65,7 +66,11 @@ def postsubmit(request):
 
 @login_required
 def submittedjokes(request):
-    return render(request, 'user/submittedjokes.html')
+    jokes = Joke.objects.filter(createdBy = request.user)
+    context = {
+    "jokes": jokes
+    }
+    return render(request, 'user/submittedjokes.html', context)
 
 
 @login_required
