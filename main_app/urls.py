@@ -4,8 +4,12 @@ from . import views
 # Paths/Routes
 urlpatterns = [
     path('', views.home, name='home'),
+
     path('about_us/', views.about_us, name='about_us'),
-    path('jokes/profile/', views.profilePage, name='profilepage'),
+
+    path('profile/', views.profilePage, name='profilepage'),
+    path('profiles/<int:user_id>/', views.anotheruserprofilepage, name='profiles'),
+
     path('allJokes/', views.allJokes, name='allJokes'),
 
     path('submitjoke/', views.submitjoke, name='submitjoke'),
@@ -38,7 +42,8 @@ urlpatterns = [
     path('jokes/<int:joke_id>/assoc_favorite/', views.assoc_favorite, name='assoc_favorite'),
     path('jokes/<int:joke_id>/assoc_dislike/', views.assoc_dislike, name='assoc_dislike'),
     path('editprofile', views.editprofile, name='editprofile'),
-
+    path('jokes/submittedjokes', views.submittedjokes, name='submittedjokes'),
     path('search', views.search, name='search'),
-
+    
+ 
 ]
