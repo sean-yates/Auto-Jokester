@@ -158,3 +158,37 @@ font-size: 20px;
   margin: auto;
   justify-content: center;
 }
+
+.aboutus_header {
+  margin-top: 30px;
+  font-family: "dosis";
+}
+
+.aboutus_p {
+  font-family: "pompiere";
+  font-size: 30px;
+}
+
+.aboutus_meet {
+  font-size: 50px;
+  font-family: "pompiere";
+}
+
+img {
+  width: 150px;
+}
+
+
+
+.aboutus_container {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  justify-content: space-evenly;
+
+
+}
+
+.member {
+  font-family: "dosis";
+}
