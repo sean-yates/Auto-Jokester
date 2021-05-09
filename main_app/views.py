@@ -253,23 +253,21 @@ def joke_random(request, category_name):
 
     response = requests.request("GET", url, headers=headers)
 
-
-
     response_data = response.json()
 
     if category_name == 'chucknorris':
-        save_joke_to_db(response_data['value']['joke'], url, arg_cat)
+        jokeToDisplay = save_joke_to_db(response_data['value']['joke'], url, arg_cat)
     elif category_name == 'pun' or category_name == 'computer' and response_data['type'] == 'twopart':
         combinedJoke = response_data['setup'] + response_data['delivery']
-        save_joke_to_db(combinedJoke, url, arg_cat)
+        jokeToDisplay = save_joke_to_db(combinedJoke, url, arg_cat)
     else:    
-        save_joke_to_db(response_data['joke'], url, arg_cat)
-    
+        jokeToDisplay = save_joke_to_db(response_data['joke'], url, arg_cat)
 
-    context = { 'response': response }
+    context = { 'joke': jokeToDisplay }
 
     return render(request, 'joke_random.html', context)
 
+  
 def random_dad_joke(request):
     # From icanhazdadjoke.com
     import requests
@@ -316,8 +314,9 @@ def save_joke_to_db(incoming_joke, source, category):
             new_joke = form.save(commit=False)
             new_joke.approved = True
             new_joke.save()
+            return new_joke
     else:
-        print('Joke already exists.')
+        return existing_joke
 
 def joke_by_id(request):
     pass
