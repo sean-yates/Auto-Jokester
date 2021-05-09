@@ -9,19 +9,15 @@
     rel="stylesheet"
   />
 
-  <div class="container">
-    <h1>These are my favorite jokes</h1>
-  </div>
-
   <div>
   {% if user.favorites.count %}
   <ul>
   {% for joke in user.favorites.all %}
-  <li><h1>{{joke}}</h1></li>
+  <div class='container'><li><h1 class="joke-card faves">{{joke}}</h1></li></div><hr/>
   {% endfor %}
   </ul>
   {% else %}
-  <h5>No Favorite Jokes Yet </h5>
+  <h5 class="joke-card">No Favorite Jokes Yet </h5>
   {% endif %}
 </body>
 

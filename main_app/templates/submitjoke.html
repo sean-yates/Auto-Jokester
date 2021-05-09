@@ -1,25 +1,43 @@
 {% comment %} {% extends 'base.html' %} {% block content %} {% endcomment %}
 
-<h1>Add A Joke!</h1>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Maitree:wght@300&family=Pompiere&display=swap"
+      rel="stylesheet"
+    />
+
+<h1 id="addjoke">Add A Joke!</h1>
 
 
 
   
-  <form action="" method="post">
+  <form action="" method="post" class="submitjoke">
             {% csrf_token %}
-            {{ j_form.as_p }}
+            <h3 class='form'>Joke:</h3>
+            {{ j_form.joke.as_textarea }}
+            <h3 class='form'>Category:</h3>
+            {{ j_form.category }}
           
 
 
        
             
         
-    <input type="submit">
+    <input type="submit" class="button">
+    <input type="button" value="Cancel" onclick="history.back()" class="button">
         
 </form>
 </div>
             
-
+<style>
+#addjoke {font-family: 'dosis'; margin-left: 40%}
+form {font-family: 'maitree'; margin-left: 25%;}
+.button {font-family: "pompiere"; background-color: #93b0b4; width: 50%; margin-left: 40%; font-size: 80%}
+#id_joke{width: 80%; height: 30%}
+#id_category{width: 25%; height: 70%;}
+.form{font-family: 'pompiere'}
+body{background-color: #f8f1b4}
+</style>
 
 
 {% comment %} {% endblock %} {% endcomment %}

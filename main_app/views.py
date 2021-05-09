@@ -267,6 +267,7 @@ def joke_random(request, category_name):
 
     return render(request, 'joke_random.html', context)
 
+  
 def random_dad_joke(request):
     # From icanhazdadjoke.com
     import requests
