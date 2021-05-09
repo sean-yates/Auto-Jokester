@@ -10,15 +10,23 @@
     rel="stylesheet"
   />
 
+
+
   <div class="container">
     {% if user.is_authenticated %}
     <p class="welcome">
-      Welcome, {{ user.get_username }}. Thanks for logging in.
+      Welcome, {{ user.get_username }}!
     </p>
     {% else %}
-    <p class="welcome">Welcome! Please log in.</p>
+
     {% endif %}
+    <p class="welcome">Today's daily joke is presented to you by AutoJokester...</p>
     <h1 id="homejoke">{{random_joke}}</h1>
+    <p>Want more jokes? <a href="{% url 'login' %}" class="headerlinks">Log In</a> or 
+    <a href="{% url 'signup' %}" class="headerlinks">Sign Up!</p>
+
+    
+
   </div>
 </body>
 

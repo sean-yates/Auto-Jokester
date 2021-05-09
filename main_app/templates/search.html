@@ -1,12 +1,14 @@
 {% extends 'base.html' %} {% block content %}
 <br />
+   <div class='empty_container'>
+    </div>
 {% if query %}
-<h1>Search Results</h1>
+<h1 class="profile_welcome">Search Results</h1>
 <hr />
 {% for x in jokes %}
-<p>{{ x.joke }}</p>
+<p class="joke-card faves">{{ x.joke }}</p>
 <br />
 
 {% endfor %} {% else %}
-<h3>No content found</h3>
+<h3 class="profile_welcome">No content found</h3>
 {% endif %} {% endblock %}

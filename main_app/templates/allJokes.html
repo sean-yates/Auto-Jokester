@@ -9,6 +9,8 @@
     rel="stylesheet"
   />
     
+    <div class='empty_container'>
+    </div>
         {% for joke in jokes %}
           <div class="container card">
             <div class="container card-content">
@@ -17,8 +19,9 @@
               
                 
                 {% if joke.joke.createdBy %}
-                  <p>Submitted by {{joke.joke.createdBy}} </p>
-                  <li><a href="{% url 'profiles' joke.joke.createdBy.id %}">{{joke.joke.createdBy}}</a></li>
+                  <p>Submitted by 
+                  <a href="{% url 'profiles' joke.joke.createdBy.id %}">{{joke.joke.createdBy}}</a></p>
+                  <br>
                 {% else %}
                   <p> </p>
                 {% endif %}

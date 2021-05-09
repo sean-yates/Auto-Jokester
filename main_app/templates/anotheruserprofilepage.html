@@ -4,8 +4,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <div class="container">
-
+       
+       <div class="profile_container">
+        <div class='empty_container'>
+    </div>
+       
+        
+            <h1>{{profile_values}}</h1>
             {% if profile_values.profile.profile_pic %}
             <img src="{{profile_values.profile.profile_pic.url}}" width="200" height="200">
           {% endif %}
@@ -13,29 +18,32 @@
             {% if profile_values.profile.bio %}
             <p>{{profile_values.profile.bio}}</p>
             {% endif %}
-        
+        </div>
+        <div class="social_links">
+
             {% if profile_values.profile.facebook_url %}
             <i class="fa fa-facebook-official" style="font-size:48px;color:blue"></i>
-            <p><a href="{{ profile_values.profile.facebook_url }}" target="_blank">Facebook</a></p>
+            <p><a href="{{ profile_values.profile.facebook_url }}" class="social_link" target="_blank">Facebook</a></p>
             {% endif %}
 
             {% if profile_values.profile.twitter_url %}
             <i class="fa fa-twitter" style="font-size:48px;color:skyblue"></i>
-            <p><a href="{{ profile_values.profile.twitter_url }}" target="_blank">Twitter</a></p>
+            <p><a href="{{ profile_values.profile.twitter_url }}" class="social_link" target="_blank">Twitter</a></p>
             {% endif %}
 
             {% if profile_values.profile.instagram_url %}
             <i class="fa fa-instagram" style="font-size:48px;color:red"></i>
-            <p><a href="{{ profile_values.profile.instagram_url }}" target="_blank">Instagram</a></p>
+            <p><a href="{{ profile_values.profile.instagram_url }}" class="social_link" target="_blank">Instagram</a></p>
             {% endif %}
             
             {% if profile_values.profile.website_url %}
             <i class="fa fa-user" style="font-size:48px;color:black"></i>
-            <p><a href="{{ profile_values.profile.website_url }}" target="_blank">My Website</a></p>
+            <p><a href="{{ profile_values.profile.website_url }}" class="social_link" target="_blank">My Website</a></p>
              {% else %}
                     <p>This user hasn't filled out their profile yet!</p>
                     {% endif %}
 
+        </div>
         </div>
     </body>
 
