@@ -1,8 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 
-<br />
-<h1 id="autojokester">{{ category }} jokes</h1>
 
+ <div class='empty_container'>
+    </div>
+<h1 id="autojokester">{{ category }} jokes</h1>
+<br />
 {% for joke in all %}
 
 <div class="container joke-card">
