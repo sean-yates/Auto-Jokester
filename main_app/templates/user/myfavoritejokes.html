@@ -10,6 +10,9 @@
   />
 
   <div>
+   <div class='empty_container'>
+    </div>
+   <h2 class="favorite_joke_header">My Favorite Jokes</h2>
   {% if user.favorites.count %}
   <ul>
   {% for joke in user.favorites.all %}

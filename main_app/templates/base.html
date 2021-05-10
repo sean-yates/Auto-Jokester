@@ -31,6 +31,7 @@
     />
   </head>
   <body>
+ 
     <script src="static/js/secret.js"></script>
     <header class="navbar-fixed">
       <nav>
@@ -71,6 +72,11 @@
             <li>
               <a href="{% url 'signup' %}" class="headerlinks">Sign Up</a>
             </li>
+
+            
+
+
+
             {% endif %} {% if user.profile.moderator %}
             <li>
               <a href="{% url 'unapproved_jokes' %}" class="headerlinks"
@@ -79,9 +85,13 @@
             </li>
             {% endif %}
           </ul>
+          </nav>
           {% if user.is_authenticated %}
+          <div class="search_container">
+          
           <form action="{% url 'search' %}" method="POST" class="d-flex">
             {% csrf_token %}
+            <p>Search for a joke in the best database</p>
             <input
               type="search"
               name="query"
@@ -92,17 +102,22 @@
               Search
             </button>
           </form>
+          </div>
           {% endif %}
         </div>
-      </nav>
+      
     </header>
+
+
     <main class="container">{% block content %} {% endblock %}</main>
 
     <footer class="page-footer yellow lighten-4 z-depth-1">
-    <a class="left" href="{% url 'about_us' %}" style="color: black">About Us</a>
+    <a class="left headerlinks" href="{% url 'about_us' %}" style="color: black">About Us</a>
       <div class="right headerlinks">
         All Rights Reserved, &copy; {% now "Y" %} AutoJokester &nbsp;
       </div>
     </footer>
+
+
   </body>
 </html>
