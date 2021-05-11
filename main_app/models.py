@@ -8,7 +8,6 @@ from django.dispatch import receiver
 # Create your models here.
 
 CATEGORIES = (
-    ('R', 'Random'),
     ('Y', 'Yo Mama'),
     ('D', 'Dad'),
     ('H', 'Chuck Norris'),
