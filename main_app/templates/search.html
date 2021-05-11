@@ -8,7 +8,8 @@
 {% for x in jokes %}
 <p class="joke-card faves">{{ x.joke }}</p>
 <br />
-
+{% empty %}
+<h3 class="profile_welcome">No content found</h3>
 {% endfor %} {% else %}
 <h3 class="profile_welcome">No content found</h3>
 {% endif %} {% endblock %}
