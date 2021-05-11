@@ -170,6 +170,11 @@ def assoc_dislike(request, joke_id):
     Joke.objects.get(id=joke_id).dislikes.add(request.user.id)
     return redirect('allJokes')
 
+@login_required
+def disassoc_favorite(request, joke_id):
+    Joke.objects.get(id=joke_id).favorites.remove(request.user.id)
+    return redirect('myfavoritejokes')
+
 
 @login_required
 def search(request):

@@ -41,6 +41,8 @@ urlpatterns = [
 
     path('jokes/<int:joke_id>/assoc_favorite/', views.assoc_favorite, name='assoc_favorite'),
     path('jokes/<int:joke_id>/assoc_dislike/', views.assoc_dislike, name='assoc_dislike'),
+    path('jokes/<int:joke_id>/disassoc_favorite/', views.disassoc_favorite, name='disassoc_favorite'),
+
     path('editprofile', views.editprofile, name='editprofile'),
     path('jokes/submittedjokes', views.submittedjokes, name='submittedjokes'),
     path('search', views.search, name='search'),
