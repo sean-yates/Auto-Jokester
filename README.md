@@ -1,6 +1,8 @@
 # Auto-Jokester
 
-* App Link goes here
+APP Link
+[AutoJokester](https://autojokester.herokuapp.com/)
+
 
 **App Summary**
 
@@ -17,7 +19,7 @@ As a user...
 * I want to be able to edit my user information in my profile
 * I want to be able to view and edit my list of submitted jokes on my user profile 
 * I want to be able to create/update/delete jokes that I have created
-* I want to be able to explore jokes on the site by category 
+* I want to be able to explore jokes on the site by category
 * I want to be able to get a random joke in a category pulled from an API if one is available
 * I want to be able to favorite and dislike jokes 
 * I want to be able to view a daily joke and the most trending joke

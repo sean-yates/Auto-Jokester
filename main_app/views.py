@@ -17,7 +17,7 @@ from .forms import JokeForm, CommentForm, ProfileForm, UserUpdateForm
 
 # Create your views here.
 def home(request):
-    db_jokes = Joke.objects.all()
+    db_jokes = Joke.objects.filter(approved=True)
     random_joke = db_jokes[(random.randint(0,(len(db_jokes)) - 1 ))]
     return render(request, 'home.html', {'random_joke': random_joke})
 
