@@ -1,8 +1,10 @@
 {% extends 'base.html' %} {% block content %}
+<div class='empty_container'>
+    </div>
 
-{{ user}}
+<p class="commenthello">Hello, {{ user}}</p>
 
-<h1>{{joke.joke}}</h1>
+<h1 class="commentjoke">{{joke.joke}}</h1>
 
 <form action="{% url 'add_comment' joke.id %}" method="post">
   {% csrf_token %}
@@ -14,7 +16,7 @@
   <div class="card">
     <div class="card-content">
       <span class="card-title">
-        {{comment.user}}: {{comment.text}}
+        <p class="comment">{{comment.user}}: {{comment.text}}</p>
       </span>
       {% if user == comment.user  %}
         <div class="card-action">
@@ -27,7 +29,9 @@
 </div>
 
 {% empty %}
-<h5>Be the first to comment on this joke!</h5>
+<br>
+<h5 class="commenthello">Be the first to comment on this joke!</h5>
+<br>
 
 {% endfor %}
 

@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+
+
+ <div class='empty_container'>
+    </div>
+
+
+
+  <div>
+ <h2 class="submitted_joke_header">Submitted Jokes</h2>
+  {% if jokes %}
+ <h1>{% for joke in jokes %}</h1>
+    <div class='container'><h1 class="joke-card faves">{{joke.joke}}</h1></div><hr/>
+  {% endfor %}
+
+{% else %}
+  <h1>No submitted jokes yet! </h1>
+  <li><a href="{% url 'submitjoke' %}">Submit a joke here</a></li>
+
+  {% endif %}
+
+</body>
+
+
+
+{% endblock %} 

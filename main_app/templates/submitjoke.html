@@ -1,48 +1,43 @@
 {% comment %} {% extends 'base.html' %} {% block content %} {% endcomment %}
 
-<h1>Add A Joke!</h1>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Maitree:wght@300&family=Pompiere&display=swap"
+      rel="stylesheet"
+    />
 
-{% comment %} <form action="" method='post'>
-    {% csrf_token %}
-    <label>Joke:</label>
-    <input type='text'></input>
-    
-    <label for='category'>Category:</label>
-    <div class='dropdown'>
-    <select name='category' id='category'>
-        <option value="animal">Animal</option>
-        <option value="chucknorris">Chuck Norris</option>
-        <option value="computer">Computer</option>
-        <option value="dad">Dad Jokes</option>
-        <option value="knockknock">Knock Knock</option>
-        <option value="pun">Pun</option>
-        <option value="random">Random</option>
-        <option value="sports">Sports</option>
-        <option value="bar">... Walks into a Bar</option>
-        <option value="yomama">Yo Mama</option>
-    </select>
-    </div>
-    <br/>
-    <input type='submit' value='Submit'>
-</form> {% endcomment %}
+<h1 id="addjoke">Add A Joke!</h1>
+
 
 
   
-  <form action="" method="post">
+  <form action="" method="post" class="submitjoke">
             {% csrf_token %}
-            {{ j_form.as_p }}
+            <h3 class='form'>Joke:</h3>
+            {{ j_form.joke.as_textarea }}
+            <h3 class='form'>Category:</h3>
+            {{ j_form.category }}
           
 
 
        
             
-        
-    <input type="submit">
+ 
+    <input type="submit" class="button">
+    <input type="button" value="Cancel" onclick="history.back()" class="button">
         
 </form>
 </div>
             
-
+<style>
+#addjoke {font-family: 'dosis'; margin-left: 40%}
+form {font-family: 'maitree'; margin-left: 25%; display: flex; flex-direction: column}
+.button {font-family: "pompiere"; background-color: #93b0b4; width: 30%; font-size: 120%; margin-bottom: 10px }
+#id_joke{width: 80%; height: 30%}
+#id_category{width: 20%; height: 5%; margin-bottom: 10px; font-family: "pompiere"; font-size: 20px }
+.form{font-family: 'pompiere'}
+body{background-color: #f8f1b4}
+</style>
 
 
 {% comment %} {% endblock %} {% endcomment %}

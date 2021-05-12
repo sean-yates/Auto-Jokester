@@ -8,19 +8,36 @@
     href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet"
   />
-
+    
+    <div class='empty_container'>
+    </div>
         {% for joke in jokes %}
           <div class="container card">
             <div class="container card-content">
               {% if joke.joke != None%}
-                <h2>{{joke.joke}}</h2>
-                <a href="{% url 'joke_details' joke.joke.id %}" class="waves-effect waves-light btn"><i class="material-icons left">view_headline</i>Comments</a>
+                <h2 class="joke-card">{{joke.joke}}</h2>
+              
+                
+                {% if joke.joke.createdBy %}
+                  <p>Submitted by 
+                  <a href="{% url 'profiles' joke.joke.createdBy.id %}">{{joke.joke.createdBy}}</a></p>
+                  <br>
+                {% else %}
+                  <p> </p>
+                {% endif %}
+                
+                <a href="{% url 'joke_details' joke.joke.id %}" class="waves-effect waves-light cyan darken-2 btn button"><i class="material-icons left i">view_headline</i>Comments</a>
               {% endif %}
-              <a href="{% url 'joke_category' joke.category.1|lower|cut:' ' %}" class="waves-effect waves-light btn"><i class="material-icons left">view_headline</i>See more {{joke.category.1}} jokes</a>
-              <a href="{% url 'joke_random' joke.category.1|lower|cut:' ' %}" class="waves-effect waves-light btn"><i class="material-icons left">view_headline</i>See a random {{joke.category.1}} joke</a>
+               <hr />
+              <a href="{% url 'joke_category' joke.category.1|lower|cut:' ' %}" class="waves-effect waves-light cyan darken-2 btn button"><i class="material-icons left i">view_headline</i>See more {{joke.category.1}} jokes</a>
+              {% if joke.category in categoriesWithApis%}
+               <hr />
+                <a href="{% url 'joke_random' joke.category.1|lower|cut:' ' %}" class="waves-effect waves-light cyan darken-2 btn button"><i class="material-icons left i">view_headline</i>See a random {{joke.category.1}} joke</a>
+              {% endif %}
             </div>
           </div>
         {% endfor %}
     </body>
+
 
 {% endblock %}

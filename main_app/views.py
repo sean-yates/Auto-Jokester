@@ -26,18 +26,29 @@ def allJokes(request):
     # jokes = Joke.objects.order_by('id')
     categories = CATEGORIES
 
+    categoriesWithApis =  (
+    ('Y', 'Yo Mama'),
+    ('D', 'Dad'),
+    ('H', 'Chuck Norris'),
+    ('P', 'Pun'),
+    ('C', 'Computer')
+)
+
     joke_list = []
     for category in categories:
         joke_in_category = Joke.objects.filter(category=category[0], approved=True).order_by("?").first()
+
         category_joke = {
             'category': category,
             'joke': joke_in_category,
+            
             }
         joke_list.append(category_joke)
 
     context = {
         'categories': categories,
         'jokes': joke_list,
+        'categoriesWithApis': categoriesWithApis
         }
 
     return render(request, 'allJokes.html', context)
@@ -50,6 +61,7 @@ def submitjoke(request):
         j_form = JokeForm(request.POST)
         if j_form.is_valid():
             new_joke = j_form.save(commit = False)
+    
             new_joke.createdBy = request.user
             new_joke.save()
         return redirect('/submitjoke/postsubmit')
@@ -63,7 +75,8 @@ def submitjoke(request):
 def postsubmit(request):
     return render(request, 'postsubmit.html')
 
-
+def about_us(request):
+    return render(request, 'about_us.html')
 
 
 
@@ -101,10 +114,27 @@ def postsubmit(request):
 
 
 @login_required
+def submittedjokes(request):
+    jokes = Joke.objects.filter(createdBy = request.user)
+    context = {
+    "jokes": jokes
+    }
+    return render(request, 'user/submittedjokes.html', context)
+
+
+@login_required
 def profilePage(request):
     return render(request, 'user/profilepage.html')
 
+@login_required
+def anotheruserprofilepage(request, user_id):
+    profile_values = User.objects.get(id=user_id)
+    context = {
+        'profile_values': profile_values,
+    }
+    return render(request, 'anotheruserprofilepage.html', context)
 
+@login_required
 def editprofile(request):
     u_form = UserUpdateForm(request.GET, initial={'value' : 'Peter'})
     if request.method == 'POST':
@@ -113,7 +143,7 @@ def editprofile(request):
         if p_form.is_valid() and u_form.is_valid():
             p_form.save()
             u_form.save()
-            return redirect('/jokes/profile/')
+            return redirect('profile/')
     else:
         p_form = ProfileForm(instance=request.user, initial={'bio' : request.user.profile.bio, 'facebook_url': request.user.profile.facebook_url, 'twitter_url': request.user.profile.twitter_url,'instagram_url': request.user.profile.instagram_url, 'website_url': request.user.profile.website_url})
         u_form = UserUpdateForm(instance=request.user.profile, initial={'username' : request.user})
@@ -140,12 +170,17 @@ def assoc_dislike(request, joke_id):
     Joke.objects.get(id=joke_id).dislikes.add(request.user.id)
     return redirect('allJokes')
 
+@login_required
+def disassoc_favorite(request, joke_id):
+    Joke.objects.get(id=joke_id).favorites.remove(request.user.id)
+    return redirect('myfavoritejokes')
+
 
 @login_required
 def search(request):
     if request.method == 'POST':
         query = request.POST.get('query')
-        jokes = Joke.objects.filter(joke__contains=query)
+        jokes = Joke.objects.filter(joke__contains=query, approved=True)
         return render(request, 'search.html', {'query': query, 'jokes': jokes})
     else:
         return render(request, 'search.html')
@@ -177,11 +212,11 @@ def joke_category(request, category):
     else:
         category_code = 'Y'
 
-    db_jokes = Joke.objects.filter(category = category_code, approved=True).order_by('id').values()
+    db_jokes = Joke.objects.filter(category = category_code, approved=True).exclude(id__in = user.favorites.all().values_list('id')).exclude(id__in = user.dislikes.all().values_list('id')).order_by('id').values()
 
-    jokes_without_action = Joke.objects.exclude(id__in = user.favorites.all().values_list('id'))
+    # jokes_without_action = Joke.objects.exclude(id__in = user.favorites.all().values_list('id'))
 
-    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category, 'jokes_without_action': jokes_without_action})
+    return render(request, 'joke_category.html', {'all': db_jokes, 'category': category})
    
 
 def joke_random(request, category_name):
@@ -223,21 +258,21 @@ def joke_random(request, category_name):
 
     response = requests.request("GET", url, headers=headers)
 
-
-    context = { 'response': response }
-
     response_data = response.json()
 
     if category_name == 'chucknorris':
-        save_joke_to_db(response_data['value']['joke'], url, arg_cat)
+        jokeToDisplay = save_joke_to_db(response_data['value']['joke'], url, arg_cat)
     elif category_name == 'pun' or category_name == 'computer' and response_data['type'] == 'twopart':
         combinedJoke = response_data['setup'] + response_data['delivery']
-        save_joke_to_db(combinedJoke, url, arg_cat)
+        jokeToDisplay = save_joke_to_db(combinedJoke, url, arg_cat)
     else:    
-        save_joke_to_db(response_data['joke'], url, arg_cat)
+        jokeToDisplay = save_joke_to_db(response_data['joke'], url, arg_cat)
+
+    context = { 'joke': jokeToDisplay }
 
     return render(request, 'joke_random.html', context)
 
+  
 def random_dad_joke(request):
     # From icanhazdadjoke.com
     import requests
@@ -284,8 +319,9 @@ def save_joke_to_db(incoming_joke, source, category):
             new_joke = form.save(commit=False)
             new_joke.approved = True
             new_joke.save()
+            return new_joke
     else:
-        print('Joke already exists.')
+        return existing_joke
 
 def joke_by_id(request):
     pass
@@ -363,6 +399,11 @@ class Update_comment(LoginRequiredMixin, UpdateView):
 class Update_joke(LoginRequiredMixin, UpdateView):
     model = Joke
     fields = ['joke', 'source']
+    def form_valid(self, form):  # hijacks the UpdateView method
+        self.object.approved = False # makes sure a joke is unapproved when you update it
+        self.object.reviewed = False # also make sure it is unreviewed
+        self.object = form.save()
+        return super().form_valid(form)
 
 
 @login_required

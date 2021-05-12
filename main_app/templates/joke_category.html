@@ -1,35 +1,36 @@
 {% extends 'base.html' %} {% block content %}
 
-<br />
-<h1>{{ category }} jokes</h1>
-<p>My name is jenn</p>
 
+ <div class='empty_container'>
+    </div>
+<h1 id="autojokester">{{ category }} jokes</h1>
+<br />
 {% for joke in all %}
 
-
-<div class="container">
-  {% if joke in user.favorites.all %} {% elif joke in user.dislikes.all %}
+<div class="container joke-card">
+  {% if joke in user.favorites.all or joke in user.dislikes.all%}
+  <div />
   {%else%}
-  <p>{{ joke }}</p>
+  <p>{{ joke.joke }}</p>
   <form action="{% url 'assoc_favorite' joke.id %}" method="post">
     {% csrf_token %}
-    <button type="submit" class="btn">Favorite</button>
+    <button type="submit" class="btn cyan darken-2 button">Favorite</button>
   </form>
   <br />
   <form action="{% url 'assoc_dislike' joke.id %}" method="post">
     {% csrf_token %}
-    <button type="submit" class="btn">Dislike</button>
+    <button type="submit" class="btn cyan darken-2 button">Dislike</button>
   </form>
   <hr />
   {% endif %}
-  
+  <div>
     {% if joke.createdBy_id == request.user.id and request.user.id != None %}
-      <div class="card-action">
-        <a href="{% url 'update_joke' joke.id %}">Edit</a>
-        <a href="{% url 'delete_joke' joke.id %}">Delete</a>
-      </div> <!--***END*** <div class="card-action"> -->
+    <div class="card-action">
+      <a href="{% url 'update_joke' joke.id %}">Edit</a>
+      <a href="{% url 'delete_joke' joke.id %}">Delete</a>
+    </div>
+    <!--***END*** <div class="card-action"> -->
     {% endif %}
-
+  </div>
 </div>
-{% endfor %}
-{% endblock %}
+{% endfor %} {% endblock %}

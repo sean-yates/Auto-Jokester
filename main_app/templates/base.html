@@ -7,66 +7,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>AutoJokester</title>
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/style.css' %}"
-    />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    {% comment %} Favicon {% endcomment %}
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="https://i.imgur.com/80uJj65.png"
+    />
+
+    {% comment %} Fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Maitree:wght@300&family=Pompiere&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+ 
     <script src="static/js/secret.js"></script>
     <header class="navbar-fixed">
       <nav>
-        <div class="nav-wrapper brown lighten-1 z-depth-1">
+        <div class="nav-wrapper z-depth-1">
           <ul>
             <li>
-              <a href="/" class="left brand-logo">&nbsp;&nbsp;AutoJokester</a>
+              <a href="/" class="left brand-logo" id="autojokester"
+                >&nbsp;&nbsp;AutoJokester</a
+              >
             </li>
           </ul>
           <ul class="right">
-            {% comment %} Put below code back before deployment {% endcomment %}
-            {# {% if user.is_authenticated %} #}
-              <li><a href="{% url 'allJokes' %}">All Jokes</a></li>
-              <li><a href="{% url 'submitjoke' %}">Submit a Joke</a></li>
-              <li><a href="{% url 'myfavoritejokes' %}">My Favorite Jokes</a></li>
-              <li><a href="{% url 'profilepage' %}">My Profile</a></li>
-            {% comment %} Erase below code and replace with above before
-            deploying {% endcomment %} {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
+            <li>
+              <a href="{% url 'allJokes' %}" class="headerlinks">All Jokes</a>
+            </li>
+            <li>
+              <a href="{% url 'submitjoke' %}" class="headerlinks"
+                >Submit a Joke</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'myfavoritejokes' %}" class="headerlinks"
+                >My Favorite Jokes</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'profilepage' %}" class="headerlinks"
+                >My Profile</a
+              >
+            </li>
 
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            <li>
+              <a href="{% url 'logout' %}" class="headerlinks">Log Out</a>
+            </li>
             {% else %}
-              <li><a href="{% url 'login' %}">Log In</a></li>
-              <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            {% endif %}
-            {% if user.profile.moderator %}
-              <li><a href="{% url 'unapproved_jokes' %}">Jokes to Review</a></li>
+            <li><a href="{% url 'login' %}" class="headerlinks">Log In</a></li>
+            <li>
+              <a href="{% url 'signup' %}" class="headerlinks">Sign Up</a>
+            </li>
+
+            
+
+
+
+            {% endif %} {% if user.profile.moderator %}
+            <li>
+              <a href="{% url 'unapproved_jokes' %}" class="headerlinks"
+                >Jokes to Review</a
+              >
+            </li>
             {% endif %}
           </ul>
+          </nav>
           {% if user.is_authenticated %}
+          <div class="search_container">
+          
           <form action="{% url 'search' %}" method="POST" class="d-flex">
             {% csrf_token %}
+            <p>Search for a joke in the best database</p>
             <input
               type="search"
               name="query"
               placeholder="Search Jokes..."
               class="form-control me-2"
             />
-            <button type="submit" class="btn">Search</button>
+            <button type="submit" class="btn cyan darken-2 button">
+              Search
+            </button>
           </form>
+          </div>
           {% endif %}
         </div>
-      </nav>
+      
     </header>
+
+
     <main class="container">{% block content %} {% endblock %}</main>
-    <footer class="page-footer brown lighten-1 z-depth-1">
-      <div class="right">
+
+    <footer class="page-footer yellow lighten-4 z-depth-1">
+    <a class="left headerlinks" href="{% url 'about_us' %}" style="color: black">About Us</a>
+      <div class="right headerlinks">
         All Rights Reserved, &copy; {% now "Y" %} AutoJokester &nbsp;
       </div>
     </footer>
+
+
   </body>
 </html>
