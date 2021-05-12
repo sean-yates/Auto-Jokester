@@ -20,7 +20,7 @@
     {% else %}
 
     {% endif %}
-    <p class="welcome">Today's daily joke is presented to you by AutoJokester...</p>
+    <p class="welcome">This random joke is presented to you by AutoJokester...</p>
     <h1 id="homejoke">{{random_joke}}</h1>
     {% if not user.is_authenticated %}
       <p class="welcome">Want more jokes? <a href="{% url 'login' %}" class="headerlinks">Log In</a> or 
